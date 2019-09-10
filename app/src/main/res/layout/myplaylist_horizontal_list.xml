@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="1dp"
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view"
+        android:layout_width="305dp"
+        android:layout_height="145dp">
+    <ImageView
+        android:id="@+id/MyPlaylist_image"
+        android:background="@drawable/playlistplaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleY="1.5"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000"
+            android:alpha="0.7" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/playlist_title"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:textSize="25sp"
+            android:fontFamily="@font/quicksand"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:text="TITLE"
+            android:textColor="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/playlist_items"
+                android:layout_width="200dp"
+                android:layout_height="15dp"
+                android:layout_below="@id/playlist_title"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="3dp"
+                android:textSize="11sp"
+                android:letterSpacing="1"
+                android:text="@string/_0_items"
+                android:fontFamily="@font/quicksand"
+                android:textColor="@color/colorPrimary"
+                android:textAlignment="center"
+                tools:ignore="SmallSp" />
+
+        </RelativeLayout>
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progressBarMyPlaylist"
+            style="@style/SpinKitView.Large.PulseRing"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            app:SpinKit_Color="@color/colorAccent"
+            android:layout_centerInParent="true" />
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

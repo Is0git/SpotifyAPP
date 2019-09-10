@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">SpotifyAPP</string>
+    <string name="home">Home</string>
+    <string name="playlists">Playlists</string>
+    <string name="search">Search</string>
+    <string name="song_name">Song_NAME</string>
+    <string name="artist_name">Artist_NAME</string>
+    <string name="playlist_items">%1$d items</string>
+    <string name="followers">%1$d Followers</string>
+    <string name="items">%1$d ITEMS</string>
+    <string name="followersString">followers</string>
+    <string name="artist">ARTIST</string>
+    <string name="give_your_playlist_a_catchy_description">Give your playlist a catchy description.</string>
+    <string name="description">Description</string>
+    <string name="my_playlist_4">My playlist #4</string>
+    <string name="create">CREATE</string>
+    <string name="playlist_title">Playlist title</string>
+    <string name="_0_items">0 items</string>
+    <string name="_0_followers">0 Followers</string>
+    <string name="recently_played">RECENTLY PLAYED,</string>
+    <string name="view_all">VIEW ALL</string>
+    <string name="albums">ALBUMS</string>
+    <string name="songs">songs</string>
+    <string name="_0">0</string>
+    <string name="artists">artists</string>
+    <string name="released">released</string>
+    <string name="album_name">album_name</string>
+    <string name="release_date_precision">release_date_precision</string>
+    <string name="songs_uppercase">SONGS</string>
+    <string name="top_songs">TOP SONGS</string>
+    <string name="song_time">0:00</string>
+    <string name="you_may_know">YOU MAY KNOW</string>
+</resources>

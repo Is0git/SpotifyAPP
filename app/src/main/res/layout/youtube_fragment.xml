@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/song_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="17dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="-7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/song_progress_bar"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/backwards_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/backwards_icon" />
+
+            <ImageView
+                android:id="@+id/forward_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="30dp"
+                android:layout_toEndOf="@id/play_button"
+                android:background="@drawable/forward_icon"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/play_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_toEndOf="@id/backwards_icon"
+                android:clickable="true"
+                app:cardBackgroundColor="@color/colorAccent"
+                app:cardCornerRadius="25sp">
+
+                <ImageView
+                    android:id="@+id/player_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_play_arrow_black_24dp"></ImageView>
+            </androidx.cardview.widget.CardView>
+
+
+        </RelativeLayout>
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="false"
+            android:visibility="gone"
+            app:showFullScreenButton="false"
+            app:showSeekBar="false"
+            app:showVideoCurrentTime="false"
+            app:showVideoDuration="false"
+            app:showYouTubeButton="false"/>
+<!--            app:videoId="S9e_INLnJts" -->
+        <!--            app:autoPlay="true"-->
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:background="@color/colorPrimary"
+        android:id="@+id/song_loading">
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/song_player_progress"
+            style="@style/SpinKitView.Large.MultiplePulse"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:SpinKit_Color="@color/colorAccent"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+</RelativeLayout>

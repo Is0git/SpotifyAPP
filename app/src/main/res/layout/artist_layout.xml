@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/artist_image_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="400dp">
+
+        <ImageView
+            android:id="@+id/artist_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/image_placeholder"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:background="@drawable/gradient">
+            </View>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
+            android:alpha="0.3"
+            android:background="@color/colorBlack">
+
+        </View>
+
+            <TextView
+                android:id="@+id/artist_name_artist"
+                android:layout_width="300dp"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/myriadpro"
+                android:shadowColor="#94000000"
+                android:shadowDy="2"
+                android:shadowRadius="4"
+                android:text="@string/artist_name"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/followers_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_0_followers"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/artist_name_artist"
+            android:layout_marginTop="10dp"
+            android:shadowColor="#94000000"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:textStyle="bold"
+            android:fontFamily="@font/agencyfb"
+            android:textSize="14sp"
+            android:letterSpacing="0.6"
+            android:textColor="@color/colorPrimary" />
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/progress_bar_header"
+                style="@style/SpinKitView.DoubleBounce"
+                android:layout_width="190dp"
+                android:layout_height="190dp"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:SpinKit_Color="@color/colorAccent"
+                android:layout_centerInParent="true" />
+    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/albums"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/artist_image_layout"
+            android:background="@color/colorMediumDarker">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="78sp"
+                android:layout_centerInParent="true"
+                android:background="@color/colorPrimary">
+            </View>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/artist_small_image_cardview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardElevation="0dp"
+                android:layout_marginStart="15sp"
+                android:layout_centerVertical="true"
+                app:cardCornerRadius="30dp">
+                <ImageView
+                    android:id="@+id/artist_small_image"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@color/colorBlack"/>
+                <ProgressBar
+                    android:id="@+id/progress_bar_small_image"
+                    android:visibility="visible"
+                    android:layout_width="30dp"
+                    android:layout_gravity="center"
+                    android:layout_height="30dp"/>
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/albums_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/artist_small_image_cardview"
+                android:layout_marginStart="15sp"
+                android:fontFamily="@font/myriadpro"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:text="@string/albums"/>
+            <TextView
+                android:id="@+id/album_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorArtist"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/myriadpro"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/albums_text"
+                android:text="@string/_0_items"/>
+
+
+            <ImageView
+                android:id="@+id/next"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/next" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15sp"
+                android:layout_toStartOf="@id/next"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:fontFamily="@font/myriadpro"
+                android:text="@string/view_all" />
+
+        </RelativeLayout>
+<RelativeLayout
+    android:id="@+id/albums_pager_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/albums">
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/albums_pager"
+            android:layout_width="match_parent"
+            android:layout_height="420dp">
+        </androidx.viewpager.widget.ViewPager>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress_bar_viewPager"
+        style="@style/SpinKitView.DoubleBounce"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        app:SpinKit_Color="@color/colorAccent"
+        android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/top_tracks_layout"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_below="@id/albums_pager_layout"
+            android:background="@color/colorMediumDarker">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:layout_centerInParent="true"
+                android:background="@color/colorMedium">
+            </View>
+            <TextView
+                android:id="@+id/top_tracks_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15sp"
+                android:fontFamily="@font/myriadpro"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:text="@string/top_songs"/>
+            <TextView
+                android:id="@+id/top_tracks_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorArtist"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/myriadpro"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/top_tracks_text"
+                android:text="@string/_0_items"/>
+
+
+            <ImageView
+                android:id="@+id/next2"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/next" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15sp"
+                android:layout_toStartOf="@id/next2"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:fontFamily="@font/myriadpro"
+                android:text="@string/view_all" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/top_tracks_recyclerView_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_tracks_layout">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/top_tracks_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                />
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/progress_bar_top_tracks"
+                style="@style/SpinKitView.DoubleBounce"
+                android:layout_width="190dp"
+                android:layout_height="190dp"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:SpinKit_Color="@color/colorAccent"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/related_artists_layout"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_below="@id/top_tracks_recyclerView_layout"
+            android:background="@color/colorMediumDarker">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:layout_centerInParent="true"
+                android:background="@color/colorMedium">
+            </View>
+            <TextView
+                android:id="@+id/related_artists_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15sp"
+                android:fontFamily="@font/myriadpro"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:text="@string/you_may_know"/>
+            <TextView
+                android:id="@+id/related_artists_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorArtist"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/myriadpro"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/related_artists_text"
+                android:text="@string/_0_items"/>
+
+
+            <ImageView
+                android:id="@+id/next3"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/next" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15sp"
+                android:layout_toStartOf="@id/next3"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:fontFamily="@font/myriadpro"
+                android:text="@string/view_all" />
+    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/related_artists_recyclerView_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/related_artists_layout">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/related_artists_recylerView"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+
+            android:layout_marginTop="0dp">
+        </androidx.recyclerview.widget.RecyclerView>
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progress_bar_related_artists"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:SpinKit_Color="@color/colorAccent"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/colorMediumDarker"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/image_layout"
+        android:layout_marginStart="17sp"
+        android:layout_marginTop="13sp"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:elevation="10dp">
+        <ImageView
+            android:id="@+id/album_image"
+            android:layout_width="99dp"
+            android:layout_height="100dp"
+            android:background="@drawable/image_placeholder" />
+
+            <ImageView
+                android:id="@+id/recently_play_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:background="@drawable/ic_play_arrow_black_24dp" >
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progressBar"
+        style="@style/SpinKitView.DoubleBounce"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:duplicateParentState="true"
+        android:layout_marginTop="20dp"
+        android:visibility="visible"
+        app:SpinKit_Color="@color/colorAccent"
+        android:layout_centerInParent="true" />
+
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/song_name"
+        android:layout_width="85sp"
+        android:textColor="@color/colorSongName"
+        android:fontFamily="@font/myriadpro"
+        android:layout_centerHorizontal="true"
+        android:height="14sp"
+        android:textSize="12sp"
+        android:layout_below="@id/image_layout"
+        android:layout_alignStart="@id/image_layout"
+        android:layout_height="wrap_content"
+        android:text="@string/song_name" />
+    <TextView
+        android:fontFamily="@font/myriadpro"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/colorArtist"
+        android:id="@+id/artist_name"
+        android:layout_width="85sp"
+        android:layout_height="13sp"
+        android:layout_below="@id/song_name"
+        android:layout_alignStart="@id/image_layout"
+        android:textSize="11sp"
+        android:text="@string/artist_name"/>
+</RelativeLayout>

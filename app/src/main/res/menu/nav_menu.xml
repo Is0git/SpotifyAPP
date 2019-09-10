@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/home"
+    android:title="@string/home"
+    android:icon="@drawable/home_icon"/>
+    <item
+        android:id="@+id/search"
+        android:title="@string/playlists"
+        android:icon="@drawable/search_icon"/>
+    <item
+        android:id="@+id/my_playlists"
+        android:title="@string/search"
+        android:icon="@drawable/music_library"/>
+</menu>
