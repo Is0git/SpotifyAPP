@@ -12,8 +12,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.android.spotifyapp.App;
 import com.android.spotifyapp.R;
-import com.android.spotifyapp.data.ViewModels.BaseViewModel;
 import com.android.spotifyapp.data.network.model.User;
+import com.android.spotifyapp.data.viewModelPackage.BaseViewModel;
 import com.android.spotifyapp.di.components.BaseComponent;
 import com.android.spotifyapp.di.components.DaggerBaseComponent;
 import com.android.spotifyapp.di.modules.ActivityViewModelModule;

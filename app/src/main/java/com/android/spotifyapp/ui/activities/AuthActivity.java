@@ -4,53 +4,61 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import com.android.spotifyapp.R;
-import com.android.spotifyapp.data.ViewModels.AuthViewModel;
-import com.android.spotifyapp.di.components.AuthComponent;
+
+import com.android.spotifyapp.data.viewModelPackage.AuthViewModel;
+import com.android.spotifyapp.databinding.ActivityAuthBinding;
 import com.android.spotifyapp.di.components.DaggerAuthComponent;
 import com.android.spotifyapp.di.modules.ContextModule;
+import com.android.spotifyapp.di.modules.DataBindingModule;
 import com.android.spotifyapp.di.modules.ViewModelsModule;
+import com.android.spotifyapp.ui.POGO;
 import com.android.spotifyapp.utils.SharedPreferencesUtil;
 import com.jakewharton.rxbinding3.view.RxView;
+
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import kotlin.Unit;
+
 import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.access_token;
 import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.shared_preferences_auth;
 import static com.android.spotifyapp.utils.Contracts.SpotifyAuthContract.REDIRECT_URL;
 import static com.android.spotifyapp.utils.Contracts.SpotifyAuthContract.URI;
 import static com.android.spotifyapp.utils.ProgressBar.progressBarUnvisible;
-import static com.android.spotifyapp.utils.ProgressBar.progressBarVisible;
 
 public class AuthActivity extends AppCompatActivity {
-    @BindView(R.id.redirectbtn) Button login;
-    @BindView(R.id.progressBar) ProgressBar progressBar;
+
     @Inject AuthViewModel authViewModel;
     @Inject CompositeDisposable disposables;
+    @Inject ActivityAuthBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auth);
-
-        ButterKnife.bind(this);
 
         DaggerAuthComponent.builder()
                 .viewModelsModule(new ViewModelsModule(null))
                 .contextModule(new ContextModule(this))
+                .dataBindingModule(new DataBindingModule(null, null))
                 .build().inject(this);
+        POGO pogo = new POGO("this", "that");
+        binding.setPOGO(pogo);
+        binding.button2.setOnClickListener(view -> {
+            
 
-        RxView.clicks(login)
+        });
+        binding.button3.setOnClickListener(view -> {
+
+            Toast.makeText(this, "RESULT: "+ pogo.getShit(), Toast.LENGTH_LONG).show();
+        });
+        RxView.clicks(binding.redirectbtn)
                 .throttleFirst(10000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Unit>() {
@@ -61,7 +69,7 @@ public class AuthActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Unit unit) {
-                        progressBarVisible(progressBar);
+                        binding.setVisibility(true);
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URI + REDIRECT_URL));
                         startActivity(intent);
                     }
@@ -87,7 +95,8 @@ public class AuthActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        progressBarUnvisible(progressBar);
+        progressBarUnvisible(binding.progressBar);
+        binding.setVisibility(false);
         Uri uri = getIntent().getData();
         if (uri != null && uri.toString().startsWith(REDIRECT_URL)) {
             String code = uri.getQueryParameter("code");
@@ -95,7 +104,8 @@ public class AuthActivity extends AppCompatActivity {
                 if(!accessToken.getAccess_token().isEmpty()) {
                     SharedPreferences.Editor editor = SharedPreferencesUtil.getPreferences(shared_preferences_auth, getApplicationContext()).edit();
                     editor.putString(access_token, accessToken.getAccess_token()).apply();
-                    progressBarVisible(progressBar);
+//                    progressBarVisible(binding.progressBar);
+                    binding.setVisibility(true);
                     Intent intent = new Intent(getBaseContext(), BaseActivity.class);
                     startActivity(intent);
                 }

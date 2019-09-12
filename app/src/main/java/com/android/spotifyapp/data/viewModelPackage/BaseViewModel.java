@@ -1,11 +1,10 @@
-package com.android.spotifyapp.data.ViewModels;
+package com.android.spotifyapp.data.viewModelPackage;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.android.spotifyapp.data.network.model.User;
 import com.android.spotifyapp.data.repositories.BaseRepository;

@@ -1,7 +1,6 @@
-package com.android.spotifyapp.ui.GlobalState;
+package com.android.spotifyapp.ui.globalState;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 
 public class CurrentSongState {
     private static CurrentSongState currentSongState;

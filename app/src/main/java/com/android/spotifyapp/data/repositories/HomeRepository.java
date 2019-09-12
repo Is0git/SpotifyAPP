@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.util.Log;
 
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.android.spotifyapp.App;
@@ -12,12 +11,7 @@ import com.android.spotifyapp.data.network.model.RecentlyPlayed;
 import com.android.spotifyapp.data.network.model.Recommendations;
 import com.android.spotifyapp.data.network.model.UserTopTracks;
 import com.android.spotifyapp.data.network.services.HomeService;
-import com.android.spotifyapp.di.components.DaggerHomeComponent;
-import com.android.spotifyapp.di.components.HomeComponent;
-import com.android.spotifyapp.di.modules.ContextModule;
-import com.android.spotifyapp.di.modules.DialogModule;
-import com.android.spotifyapp.di.modules.RecyclerViewModule;
-import com.android.spotifyapp.di.modules.ViewModelsModule;
+import com.android.spotifyapp.di.components.DaggerHomeRepositoryComponent;
 import com.android.spotifyapp.di.qualifiers.RetrofitQualifier;
 import com.android.spotifyapp.utils.SharedPreferencesUtil;
 
@@ -45,7 +39,7 @@ public class HomeRepository {
     private HomeService homeService;
     private MutableLiveData<UserTopTracks> userTopTracksMutableLiveData;
     private MutableLiveData<RecentlyPlayed> recentlyPlayedMutableLiveData;
-    private MediatorLiveData mediatorLiveData;
+    private MutableLiveData<Recommendations> recommendationsMutableLiveData;
     private Recommendations recommendationsHelper;
     private CompositeDisposable compositeDisposable;
     private String token;
@@ -54,18 +48,12 @@ public class HomeRepository {
         userTopTracksMutableLiveData = new MutableLiveData<>();
         compositeDisposable = new CompositeDisposable();
         recentlyPlayedMutableLiveData = new MutableLiveData<>();
-        mediatorLiveData = new MediatorLiveData();
         token = SharedPreferencesUtil.getPreferences(shared_preferences_auth, application).getString(access_token, "NO TOKEN");
+        recommendationsMutableLiveData = new MutableLiveData<>();
 
-        HomeComponent homeComponent = DaggerHomeComponent.builder()
-                .recyclerViewModule(new RecyclerViewModule(null))
-                .viewModelsModule(new ViewModelsModule(null))
+        DaggerHomeRepositoryComponent.builder()
                 .appComponent(((App) application.getApplicationContext()).getAppComponent())
-                .contextModule(new ContextModule(null))
-                .dialogModule(new DialogModule(null))
-                .build();
-
-        homeComponent.inject(this);
+                .build().inject(this);
     }
     public static HomeRepository getInstance(Application application) {
         if(homeRepository_instance == null) {
@@ -75,8 +63,6 @@ public class HomeRepository {
         return homeRepository_instance;
     }
     public MutableLiveData<RecentlyPlayed> getRecentlyPlayed() {
-
-
         homeService = retrofit.create(HomeService.class);
         Observable<RecentlyPlayed> observable = homeService.getRecentlyPlayed("Bearer " + token);
         observable
@@ -85,17 +71,14 @@ public class HomeRepository {
                 .subscribe(new Observer<RecentlyPlayed>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        Log.d("SUBGOT", "onSubscribe: Recents");
                         compositeDisposable.add(d);
                     }
 
                     @Override
                     public void onNext(RecentlyPlayed recentlyPlayed) {
-                        Log.d("GOTCHA", "onNextRecentlys: " + recentlyPlayed.getMitems().size());
                             recentlyPlayedMutableLiveData.setValue(recentlyPlayed);
 
                     }
-
                     @Override
                     public void onError(Throwable e) {
                         Log.d(TAG, "on" + e.getMessage());
@@ -111,7 +94,6 @@ public class HomeRepository {
 
     @SuppressLint("CheckResult")
     public MutableLiveData<Recommendations> getRecommendations() {
-        final MutableLiveData<Recommendations> recommendationsMutableLiveData = new MutableLiveData<>();
         getRecommendationsObservable()
                 .subscribeOn(Schedulers.io())
                 .flatMap((Function<Recommendations.Tracks, ObservableSource<Recommendations.Tracks>>) this::getModifiedObservable).observeOn(AndroidSchedulers.mainThread())
@@ -123,7 +105,7 @@ public class HomeRepository {
 
             @Override
             public void onNext(Recommendations.Tracks tracks) {
-                recommendationsMutableLiveData.setValue(recommendationsHelper);
+
             }
 
             @Override
@@ -133,6 +115,7 @@ public class HomeRepository {
 
             @Override
             public void onComplete() {
+                recommendationsMutableLiveData.setValue(recommendationsHelper);
             }
         });
 
@@ -170,7 +153,6 @@ public class HomeRepository {
 
                     @Override
                     public void onNext(UserTopTracks userTopTracks) {
-                        Log.d(TAG4, "onNext: " + userTopTracks.getItems().size());
                             userTopTracksMutableLiveData.setValue(userTopTracks);
                     }
 

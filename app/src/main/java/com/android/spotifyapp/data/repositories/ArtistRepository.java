@@ -10,12 +10,7 @@ import com.android.spotifyapp.data.network.model.byId.ArtistTopTracks;
 import com.android.spotifyapp.data.network.model.byId.ArtistsAlbum;
 import com.android.spotifyapp.data.network.model.byId.RelatedArtists;
 import com.android.spotifyapp.data.network.services.ArtistService;
-import com.android.spotifyapp.di.components.ArtistComponent;
-import com.android.spotifyapp.di.components.DaggerArtistComponent;
-import com.android.spotifyapp.di.modules.AdaptersModule;
-import com.android.spotifyapp.di.modules.ContextModule;
-import com.android.spotifyapp.di.modules.RecyclerViewModule;
-import com.android.spotifyapp.di.modules.ViewModelsModule;
+import com.android.spotifyapp.di.components.DaggerArtistRepositoryComponent;
 import com.android.spotifyapp.di.qualifiers.RetrofitQualifier;
 import com.android.spotifyapp.utils.SharedPreferencesUtil;
 
@@ -52,14 +47,10 @@ public class ArtistRepository {
         relatedArtistsMutableLiveData = new MutableLiveData<>();
         disposable = new CompositeDisposable();
         token = SharedPreferencesUtil.getPreferences(shared_preferences_auth, application).getString(access_token, "NO TOKEN");
-        ArtistComponent artistComponent  =  DaggerArtistComponent.builder()
+        DaggerArtistRepositoryComponent.builder()
                 .appComponent(((App) application.getApplicationContext()).getAppComponent())
-                .viewModelsModule(new ViewModelsModule(null))
-                .contextModule(new ContextModule(null))
-                .recyclerViewModule(new RecyclerViewModule(null))
-                .adaptersModule(new AdaptersModule())
-                .build();
-        artistComponent.injectRepository(this);
+                .build().inject(this);
+
     }
 
     public static ArtistRepository getInstance(Application application) {

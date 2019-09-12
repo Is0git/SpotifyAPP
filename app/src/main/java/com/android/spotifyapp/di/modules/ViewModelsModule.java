@@ -5,11 +5,11 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.android.spotifyapp.data.ViewModels.ArtistViewModel;
-import com.android.spotifyapp.data.ViewModels.AuthViewModel;
-import com.android.spotifyapp.data.ViewModels.HomeViewModel;
-import com.android.spotifyapp.data.ViewModels.MyPlaylistViewModel;
-import com.android.spotifyapp.data.ViewModels.YoutubePlayerViewmodel;
+import com.android.spotifyapp.data.viewModelPackage.ArtistViewModel;
+import com.android.spotifyapp.data.viewModelPackage.AuthViewModel;
+import com.android.spotifyapp.data.viewModelPackage.HomeViewModel;
+import com.android.spotifyapp.data.viewModelPackage.MyPlaylistViewModel;
+import com.android.spotifyapp.data.viewModelPackage.YoutubePlayerViewmodel;
 import com.android.spotifyapp.di.qualifiers.ActivityContext;
 import com.android.spotifyapp.di.scopes.AuthScope;
 import com.android.spotifyapp.di.scopes.YoutubeScope;

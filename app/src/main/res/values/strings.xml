@@ -8,6 +8,7 @@
     <string name="playlist_items">%1$d items</string>
     <string name="followers">%1$d Followers</string>
     <string name="items">%1$d ITEMS</string>
+    <string name="items_1">1 ITEM</string>
     <string name="followersString">followers</string>
     <string name="artist">ARTIST</string>
     <string name="give_your_playlist_a_catchy_description">Give your playlist a catchy description.</string>
@@ -30,4 +31,5 @@
     <string name="top_songs">TOP SONGS</string>
     <string name="song_time">0:00</string>
     <string name="you_may_know">YOU MAY KNOW</string>
+    <string name="recommended_artists">RECOMMMENDED ARTISTS</string>
 </resources>

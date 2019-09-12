@@ -1,4 +1,4 @@
-package com.android.spotifyapp.data.ViewModels;
+package com.android.spotifyapp.data.viewModelPackage;
 
 import android.app.Application;
 

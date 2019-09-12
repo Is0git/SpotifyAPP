@@ -2,7 +2,7 @@ package com.android.spotifyapp.di.modules;
 
 import androidx.lifecycle.ViewModelProviders;
 
-import com.android.spotifyapp.data.ViewModels.BaseViewModel;
+import com.android.spotifyapp.data.viewModelPackage.BaseViewModel;
 import com.android.spotifyapp.ui.activities.BaseActivity;
 
 import dagger.Module;

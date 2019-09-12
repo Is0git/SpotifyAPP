@@ -8,10 +8,10 @@ import com.android.spotifyapp.di.scopes.HomeFragmentScope;
 import com.android.spotifyapp.ui.adapters.Artist.AlbumAdapter;
 import com.android.spotifyapp.ui.adapters.Artist.RelatedArtistsAdapter;
 import com.android.spotifyapp.ui.adapters.Artist.TopSongsAdapter;
-import com.android.spotifyapp.ui.adapters.Home.HomeHorizontal;
-import com.android.spotifyapp.ui.adapters.Home.MyPlaylistsAdapter;
-import com.android.spotifyapp.ui.adapters.Home.RecommendedAdapter;
-import com.android.spotifyapp.ui.adapters.Home.SliderAdapter;
+import com.android.spotifyapp.ui.adapters.homeadapters.HomeHorizontal;
+import com.android.spotifyapp.ui.adapters.homeadapters.MyPlaylistsAdapter;
+import com.android.spotifyapp.ui.adapters.homeadapters.RecommendedAdapter;
+import com.android.spotifyapp.ui.adapters.homeadapters.SliderAdapter;
 
 import dagger.Module;
 import dagger.Provides;

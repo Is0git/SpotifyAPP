@@ -8,27 +8,32 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
+
 import com.android.spotifyapp.R;
-import com.android.spotifyapp.data.ViewModels.YoutubePlayerViewmodel;
 import com.android.spotifyapp.data.network.model.YoutubeVideos;
+import com.android.spotifyapp.data.viewModelPackage.YoutubePlayerViewmodel;
 import com.android.spotifyapp.di.components.DaggerYoutubeComponent;
 import com.android.spotifyapp.di.components.YoutubeComponent;
 import com.android.spotifyapp.di.modules.ViewModelsModule;
 import com.android.spotifyapp.di.modules.YoutubeModule;
-import com.android.spotifyapp.ui.GlobalState.CurrentSongState;
+import com.android.spotifyapp.ui.globalState.CurrentSongState;
 import com.android.spotifyapp.ui.listeners.OnSwipeListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
 import org.jetbrains.annotations.NotNull;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

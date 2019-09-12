@@ -1,289 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-<RelativeLayout
-   android:layout_width="match_parent"
-    android:background="@color/colorPrimary"
-    android:layout_height="wrap_content">
-  <RelativeLayout
+<layout>
+  <data>
+
+    <import type="android.view.View"/>
+    <import type="androidx.lifecycle.AndroidViewModel"/>
+
+      <import type="androidx.lifecycle.LiveData"/>
+
+    <import type="com.android.spotifyapp.data.viewModelPackage.MyPlaylistViewModel"/>
+    <import type="com.android.spotifyapp.data.viewModelPackage.HomeViewModel"/>
+
+    <variable
+        name="playlistViewModel"
+        type="MyPlaylistViewModel" />
+
+    <variable
+        name="homeViewModel"
+        type="HomeViewModel" />
+  </data>
+
+
+  <ScrollView android:layout_height="wrap_content"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-    android:id="@+id/slider_view">
-  <com.smarteist.autoimageslider.SliderView
-      android:id="@+id/slider"
-      android:layout_width="match_parent"
-      android:layout_height="340dp"
-      app:sliderAnimationDuration="600"
-      app:sliderAutoCycleDirection="back_and_forth"
-      app:sliderAutoCycleEnabled="true"
-      app:sliderCircularHandlerEnabled="true"
-      app:sliderIndicatorAnimationDuration="600"
-      app:sliderIndicatorGravity="center_horizontal|bottom"
-      app:sliderIndicatorMargin="15dp"
-      app:sliderIndicatorOrientation="horizontal"
-      app:sliderIndicatorPadding="3dp"
-      app:sliderIndicatorRadius="1dp"
-      app:sliderIndicatorSelectedColor="@color/colorTitle"
-      app:sliderIndicatorUnselectedColor="@color/colorPrimary"
-      app:sliderScrollTimeInSec="5"
-      app:sliderStartAutoCycle="true" />
-  <com.github.ybq.android.spinkit.SpinKitView
-      android:id="@+id/progressBarHomeSlider"
-      style="@style/SpinKitView.DoubleBounce"
-      android:layout_width="190dp"
-      android:layout_height="190dp"
-      android:layout_gravity="center"
-      android:visibility="visible"
-      app:SpinKit_Color="@color/colorAccent"
-      android:layout_centerInParent="true" />
-  </RelativeLayout>
-  <RelativeLayout
-      android:id="@+id/recently_played_title"
-      android:layout_width="match_parent"
-      android:layout_height="52dp"
-      android:layout_below="@id/slider_view"
-      android:background="@color/colorMediumDarker">
-    <View
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50sp"
-      android:layout_centerInParent="true"
-      android:background="@color/colorMedium">
-    </View>
-      <TextView
-          android:id="@+id/recently_played_text"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content">
+      <RelativeLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_centerVertical="true"
-          android:layout_marginStart="15sp"
-          android:fontFamily="@font/myriadpro"
-          android:textSize="12sp"
-          android:textStyle="bold"
-          android:textColor="@color/colorBlack"
-          android:text="RECENTLY PLAYED, "/>
-      <TextView
-          android:id="@+id/recently_played_items"
+          android:id="@+id/slider_view">
+        <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            app:sliderAnimationDuration="600"
+            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderCircularHandlerEnabled="true"
+            app:sliderIndicatorAnimationDuration="600"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="15dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="1dp"
+            app:sliderIndicatorSelectedColor="@color/colorTitle"
+            app:sliderIndicatorUnselectedColor="@color/colorPrimary"
+            app:sliderScrollTimeInSec="5"
+            app:sliderStartAutoCycle="true" />
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progressBarHomeSlider"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="190dp"
+            android:visibility="@{homeViewModel.userTopTracks.items == null ? View.VISIBLE : View.INVISIBLE}"
+            android:layout_height="190dp"
+            android:layout_gravity="center"
+
+            app:SpinKit_Color="@color/colorAccent"
+            android:layout_centerInParent="true" />
+      </RelativeLayout>
+      <RelativeLayout
+          android:id="@+id/recently_played_title"
+          android:layout_width="match_parent"
+          android:layout_height="52dp"
+          android:layout_below="@id/slider_view"
+          android:background="@color/colorMediumDarker">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorMedium">
+        </View>
+        <TextView
+            android:id="@+id/recently_played_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15sp"
+            android:fontFamily="@font/myriadpro"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:text="RECENTLY PLAYED, "/>
+        <TextView
+            android:id="@+id/recently_played_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorArtist"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:fontFamily="@font/myriadpro"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@id/recently_played_text"
+            setPlaceHolderText="@{homeViewModel.recentlyPlayed.mitems.size()}"
+            android:text="@string/_0_items"/>
+
+
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/next" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15sp"
+            android:layout_toLeftOf="@id/next"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            android:fontFamily="@font/myriadpro"
+            android:text="VIEW ALL" />
+
+      </RelativeLayout>
+      <RelativeLayout
+          android:id="@+id/recently_played_view"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_centerVertical="true"
-          android:textColor="@color/colorArtist"
-          android:textStyle="bold"
-          android:textSize="12sp"
-          android:fontFamily="@font/myriadpro"
-          android:layout_marginStart="5dp"
-          android:layout_toRightOf="@id/recently_played_text"
-          android:text="0 ITEMS"/>
+          android:layout_below="@id/recently_played_title">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recently_played_list"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_marginTop="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal">
+        </androidx.recyclerview.widget.RecyclerView>
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progressBarRecentlyPlayed"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_gravity="center"
+            android:visibility="@{homeViewModel.recentlyPlayed.mitems == null ? View.VISIBLE : View.INVISIBLE}"
+            app:SpinKit_Color="@color/colorAccent"
+            android:layout_centerInParent="true" />
+      </RelativeLayout>
+      <RelativeLayout
+          android:id="@+id/my_playlists"
+          android:layout_width="match_parent"
+          android:layout_height="52dp"
+          android:layout_below="@id/recently_played_view"
+          android:background="@color/colorMediumDarker">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorMedium">
+        </View>
+        <TextView
+            android:id="@+id/my_playlists_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15sp"
+            android:fontFamily="@font/myriadpro"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:text="MY PLAYLISTS,"/>
 
+        <TextView
+            android:id="@+id/myPlaylist_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorArtist"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:fontFamily="@font/myriadpro"
+            android:layout_marginStart="5dp"
+            setPlaceHolderText="@{playlistViewModel.myPlaylist.mitems.size()}"
+            android:layout_toRightOf="@id/my_playlists_text"
+            android:text="@string/_0_items"/>
 
-      <ImageView
-          android:id="@+id/next"
-          android:layout_width="12dp"
-          android:layout_height="12dp"
-          android:layout_alignParentEnd="true"
-          android:layout_centerVertical="true"
-          android:layout_marginEnd="15dp"
-          android:background="@drawable/next" />
+        <ImageView
+            android:id="@+id/next2"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/next" />
 
-      <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15sp"
+            android:layout_toLeftOf="@id/next2"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            android:fontFamily="@font/myriadpro"
+            android:text="VIEW ALL" />
+
+      </RelativeLayout>
+      <RelativeLayout
+          android:id="@+id/playlist_view"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="15sp"
-          android:layout_toLeftOf="@id/next"
-          android:layout_centerVertical="true"
-          android:textColor="@color/colorAccent"
-          android:textSize="12sp"
-          android:fontFamily="@font/myriadpro"
-          android:text="VIEW ALL" />
+          android:layout_below="@id/my_playlists">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/MyPlaylists_list"
+            android:layout_width="match_parent"
+            android:layout_height="145dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="0dp">
 
-  </RelativeLayout>
-<RelativeLayout
-    android:id="@+id/recently_played_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/recently_played_title">
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recently_played_list"
-      android:layout_width="match_parent"
-      android:layout_height="170dp"
-      android:layout_marginTop="0dp">
+        </androidx.recyclerview.widget.RecyclerView>
 
-  </androidx.recyclerview.widget.RecyclerView>
-  <com.github.ybq.android.spinkit.SpinKitView
-      android:id="@+id/progressBarRecentlyPlayed"
-      style="@style/SpinKitView.DoubleBounce"
-      android:layout_width="85dp"
-      android:layout_height="85dp"
-      android:layout_gravity="center"
-      android:visibility="visible"
-      app:SpinKit_Color="@color/colorAccent"
-      android:layout_centerInParent="true" />
-</RelativeLayout>
-  <RelativeLayout
-      android:id="@+id/my_playlists"
-      android:layout_width="match_parent"
-      android:layout_height="52dp"
-      android:layout_below="@id/recently_played_view"
-      android:background="@color/colorMediumDarker">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_centerInParent="true"
-        android:background="@color/colorMedium">
-    </View>
-    <TextView
-        android:id="@+id/my_playlists_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="15sp"
-        android:fontFamily="@font/myriadpro"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorBlack"
-        android:text="MY PLAYLISTS,"/>
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progressBarPlaylists"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_gravity="center"
+            android:visibility="@{playlistViewModel.myPlaylist.mitems == null ? View.VISIBLE : View.INVISIBLE}"
+            app:SpinKit_Color="@color/colorPrimary"
+            android:layout_centerInParent="true" />
+      </RelativeLayout>
+      <RelativeLayout
+          android:id="@+id/recommended_artist"
+          android:layout_width="match_parent"
+          android:layout_height="52dp"
+          android:layout_below="@id/playlist_view"
+          android:background="@color/colorMediumDarker">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorMedium">
+        </View>
+        <TextView
+            android:id="@+id/recommended_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15sp"
+            android:fontFamily="@font/myriadpro"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:text="@string/recommended_artists"/>
 
-    <TextView
-        android:id="@+id/myPlaylist_items"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:textColor="@color/colorArtist"
-        android:textStyle="bold"
-        android:textSize="12sp"
-        android:fontFamily="@font/myriadpro"
-        android:layout_marginStart="5dp"
-        android:layout_toRightOf="@id/my_playlists_text"
-        android:text="0 ITEMS"/>
+        <TextView
+            android:id="@+id/recommended_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorArtist"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:fontFamily="@font/myriadpro"
+            android:layout_toRightOf="@id/recommended_text"
+            android:layout_marginStart="5dp"
+            setPlaceHolderText="@{homeViewModel.recommendations.mtracks.size()}"
+            android:text="@string/_0_items"/>
 
-    <ImageView
-        android:id="@+id/next2"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/next" />
+        <ImageView
+            android:id="@+id/next3"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/next" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15sp"
-        android:layout_toLeftOf="@id/next2"
-        android:layout_centerVertical="true"
-        android:textColor="@color/colorAccent"
-        android:textSize="12sp"
-        android:fontFamily="@font/myriadpro"
-        android:text="VIEW ALL" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15sp"
+            android:layout_toLeftOf="@id/next3"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            android:fontFamily="@font/myriadpro"
+            android:text="VIEW ALL" />
 
-  </RelativeLayout>
-<RelativeLayout
-    android:id="@+id/playlist_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/my_playlists">
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/MyPlaylists_list"
-      android:layout_width="match_parent"
-      android:layout_height="145dp"
-      android:background="@color/colorAccent"
-      android:layout_marginTop="0dp">
+      </RelativeLayout>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/recommended_artist">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recommended_list"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:layout_marginTop="0dp">
+        </androidx.recyclerview.widget.RecyclerView>
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progressBarRecommended"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_gravity="center"
+            android:visibility="@{homeViewModel.recommendations.mtracks == null ? View.VISIBLE : View.INVISIBLE}"
+            app:SpinKit_Color="@color/colorAccent"
+            android:layout_centerInParent="true" />
 
-  </androidx.recyclerview.widget.RecyclerView>
-
-  <com.github.ybq.android.spinkit.SpinKitView
-      android:id="@+id/progressBarPlaylists"
-      style="@style/SpinKitView.DoubleBounce"
-      android:layout_width="85dp"
-      android:layout_height="85dp"
-      android:layout_gravity="center"
-      android:visibility="visible"
-      app:SpinKit_Color="@color/colorPrimary"
-      android:layout_centerInParent="true" />
-</RelativeLayout>
-  <RelativeLayout
-      android:id="@+id/reccomended_artist"
-      android:layout_width="match_parent"
-      android:layout_height="52dp"
-      android:layout_below="@id/playlist_view"
-      android:background="@color/colorMediumDarker">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_centerInParent="true"
-        android:background="@color/colorMedium">
-    </View>
-    <TextView
-        android:id="@+id/recommended_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="15sp"
-        android:fontFamily="@font/myriadpro"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorBlack"
-        android:text="RECCOMENDED ARTIST,"/>
-
-    <TextView
-        android:id="@+id/recommended_items"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:textColor="@color/colorArtist"
-        android:textStyle="bold"
-        android:textSize="12sp"
-        android:fontFamily="@font/myriadpro"
-        android:layout_toRightOf="@id/recommended_text"
-        android:layout_marginStart="5dp"
-        android:text="0 ITEMS"/>
-
-    <ImageView
-        android:id="@+id/next3"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/next" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15sp"
-        android:layout_toLeftOf="@id/next3"
-        android:layout_centerVertical="true"
-        android:textColor="@color/colorAccent"
-        android:textSize="12sp"
-        android:fontFamily="@font/myriadpro"
-        android:text="VIEW ALL" />
-
-  </RelativeLayout>
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/reccomended_artist">
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recommended_list"
-      android:layout_width="match_parent"
-      android:layout_height="210dp"
-      android:layout_marginTop="0dp">
-  </androidx.recyclerview.widget.RecyclerView>
-    <com.github.ybq.android.spinkit.SpinKitView
-        android:id="@+id/progressBarRecommended"
-        style="@style/SpinKitView.DoubleBounce"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:layout_gravity="center"
-        android:visibility="visible"
-        app:SpinKit_Color="@color/colorAccent"
-        android:layout_centerInParent="true" />
-
-  </RelativeLayout>
-  <View
-      android:layout_width="wrap_content"
-      android:layout_height="1dp"
-      android:background="@color/colorMediumDarker"
-      android:layout_alignParentBottom="true"/>
-</RelativeLayout>
-</ScrollView>
+      </RelativeLayout>
+      <View
+          android:layout_width="wrap_content"
+          android:layout_height="1dp"
+          android:background="@color/colorMediumDarker"
+          android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+  </ScrollView>
+</layout>

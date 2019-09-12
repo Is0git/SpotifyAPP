@@ -1,4 +1,4 @@
-package com.android.spotifyapp.data.ViewModels;
+package com.android.spotifyapp.data.viewModelPackage;
 
 import android.app.Application;
 
@@ -8,9 +8,6 @@ import androidx.lifecycle.LiveData;
 
 import com.android.spotifyapp.data.network.model.YoutubeVideos;
 import com.android.spotifyapp.data.repositories.YoutubePlayerRepository;
-import com.android.spotifyapp.ui.GlobalState.CurrentSongState;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 
 public class YoutubePlayerViewmodel extends AndroidViewModel {
         private YoutubePlayerRepository youtubePlayerRepository;

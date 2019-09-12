@@ -30,6 +30,7 @@ import retrofit2.Retrofit;
 
 import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.access_token;
 import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.shared_preferences_auth;
+import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.shared_preferences_user;
 import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.user_id;
 
 public class MyPlaylistRepository {
@@ -42,10 +43,15 @@ public class MyPlaylistRepository {
     private MyPlaylistService myPlaylistService;
     private static MyPlaylistRepository myPlaylistRepository_instance = null;
     private SharedPreferences sharedPreferences;
+    private String playlist_id;
+
+
+
     private String token;
     private MyPlaylistRepository(Application application) {
         myPlaylistMutableLiveData = new MutableLiveData<>();
         compositeDisposable = new CompositeDisposable();
+        sharedPreferences = SharedPreferencesUtil.getPreferences(shared_preferences_user, application);
         token = SharedPreferencesUtil.getPreferences(shared_preferences_auth, application).getString(access_token, "NO TOKEN");
         MyplaylistComponent myplaylistComponent = DaggerMyplaylistComponent.create();
         myplaylistComponent.inject(this);
@@ -58,9 +64,10 @@ public class MyPlaylistRepository {
         }
         return myPlaylistRepository_instance;
     }
-    public LiveData<MyPlaylist> getMyPlaylist(String access_token) {
 
-        Observable<MyPlaylist> observable2 = myPlaylistService.getMyPlaylist(access_token);
+
+    public LiveData<MyPlaylist> getMyPlaylist() {
+        Observable<MyPlaylist> observable2 = myPlaylistService.getMyPlaylist("Bearer " + token);
         observable2.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<MyPlaylist>() {
@@ -84,7 +91,7 @@ public class MyPlaylistRepository {
 
                     @Override
                     public void onComplete() {
-                        Log.d(TAG, "onComplete: " + "Completed");
+                        Log.d("WHATISGOING", "onComplete: " + "Completed");
                     }
                 });
         return myPlaylistMutableLiveData;
@@ -106,6 +113,7 @@ public class MyPlaylistRepository {
     }
 
     public void createNewPlaylist(MyPlaylistPost myPlaylistPost) {
+        Log.d("elseor", "createNewPlaylist: " + sharedPreferences.getString(user_id, null) );
         Call<Void> call = myPlaylistService.addPlaylist("Bearer " + token, myPlaylistPost, sharedPreferences.getString(user_id, null));
         call.enqueue(new Callback<Void>() {
             @Override
@@ -121,9 +129,15 @@ public class MyPlaylistRepository {
         });
 
     }
+    public String getPlaylist_id() {
+        return playlist_id;
+    }
 
+    public void setPlaylist_id(String playlist_id) {
+        this.playlist_id = playlist_id;
+    }
     public void refreshPlaylist() {
-        getMyPlaylist("Bearer " + token);
+        getMyPlaylist();
     }
     public CompositeDisposable getDisposables() {
         return compositeDisposable;

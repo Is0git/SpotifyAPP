@@ -7,59 +7,38 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.spotifyapp.App;
 import com.android.spotifyapp.R;
-import com.android.spotifyapp.data.ViewModels.HomeViewModel;
-import com.android.spotifyapp.data.ViewModels.MyPlaylistViewModel;
 import com.android.spotifyapp.data.network.model.Post.MyPlaylistPost;
 import com.android.spotifyapp.data.network.model.Recommendations;
+import com.android.spotifyapp.data.viewModelPackage.HomeViewModel;
+import com.android.spotifyapp.data.viewModelPackage.MyPlaylistViewModel;
+import com.android.spotifyapp.databinding.HomeFragmentBinding;
 import com.android.spotifyapp.di.components.DaggerHomeComponent;
-import com.android.spotifyapp.di.components.HomeComponent;
 import com.android.spotifyapp.di.modules.ContextModule;
+import com.android.spotifyapp.di.modules.DataBindingModule;
 import com.android.spotifyapp.di.modules.DialogModule;
-import com.android.spotifyapp.di.modules.RecyclerViewModule;
 import com.android.spotifyapp.di.modules.ViewModelsModule;
-import com.android.spotifyapp.di.qualifiers.MyPlaylistListQualifier;
-import com.android.spotifyapp.di.qualifiers.RecentlyPlayedQualifier;
-import com.android.spotifyapp.di.qualifiers.RecommendedListQualifier;
-import com.android.spotifyapp.ui.GlobalState.CurrentSongState;
 import com.android.spotifyapp.ui.activities.BaseActivity;
-import com.android.spotifyapp.ui.adapters.Home.HomeHorizontal;
-import com.android.spotifyapp.ui.adapters.Home.MyPlaylistsAdapter;
-import com.android.spotifyapp.ui.adapters.Home.RecommendedAdapter;
-import com.android.spotifyapp.ui.adapters.Home.SliderAdapter;
-import com.android.spotifyapp.utils.CheckProgressBar;
+import com.android.spotifyapp.ui.adapters.homeadapters.HomeHorizontal;
+import com.android.spotifyapp.ui.adapters.homeadapters.MyPlaylistsAdapter;
+import com.android.spotifyapp.ui.adapters.homeadapters.RecommendedAdapter;
+import com.android.spotifyapp.ui.adapters.homeadapters.SliderAdapter;
+import com.android.spotifyapp.ui.globalState.CurrentSongState;
 import com.android.spotifyapp.utils.Dialogs.Dialog;
-import com.android.spotifyapp.utils.SharedPreferencesUtil;
-import com.smarteist.autoimageslider.SliderView;
-
 import java.util.Objects;
-
 import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.access_token;
-import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.shared_preferences_auth;
-
-
+import static com.android.spotifyapp.utils.Contracts.BundleKeys.artist_followers;
+import static com.android.spotifyapp.utils.Contracts.BundleKeys.artist_id;
+import static com.android.spotifyapp.utils.Contracts.BundleKeys.artist_image_url;
+import static com.android.spotifyapp.utils.Contracts.BundleKeys.artist_name;
 
 public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListener, MyPlaylistsAdapter.PlaylistListener, RecommendedAdapter.onItemListener {
-    @Inject @RecentlyPlayedQualifier RecyclerView recyclerView;
-    @Inject @MyPlaylistListQualifier RecyclerView MyPlaylistRecyclerView;
-    @Inject @RecommendedListQualifier RecyclerView recommendedRecyclerView;
-
     @Inject HomeHorizontal homeHorizontal;
     @Inject MyPlaylistsAdapter myPlaylistsAdapter;
     @Inject RecommendedAdapter recommendedAdapter;
@@ -71,74 +50,43 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
 
     @Inject Dialog dialog;
 
-    @BindView(R.id.progressBarRecommended) ProgressBar progressBar_recommended;
-    @BindView(R.id.progressBarRecentlyPlayed) ProgressBar progressBar_recently;
-    @BindView(R.id.progressBarPlaylists) ProgressBar progressBar_playlists;
-    @BindView(R.id.progressBarHomeSlider) ProgressBar progressBar_slider;
-    @BindView(R.id.recently_played_items) TextView recently_played_items;
-    @BindView(R.id.myPlaylist_items) TextView my_playlist_items;
-    @BindView(R.id.recommended_items) TextView recommended_items;
-    @BindView(R.id.slider) SliderView sliderView;
-
-    private String id;
-    private View view;
+    @Inject HomeFragmentBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.home_fragment, container, false);
-        ButterKnife.bind(this, view);
         //Dagger
-        HomeComponent component = DaggerHomeComponent.builder()
-        .recyclerViewModule(new RecyclerViewModule(view))
-                .appComponent(((App) Objects.requireNonNull(getActivity()).getApplicationContext()).getAppComponent())
+        DaggerHomeComponent.builder()
                 .viewModelsModule(new ViewModelsModule(this))
                 .dialogModule(new DialogModule(this))
                 .contextModule(new ContextModule(getActivity()))
-                .build();
-        component.injectFragment(this);
+                .dataBindingModule(new DataBindingModule(inflater, container))
+                .build().injectFragment(this);
 
         //Recently played list
-        //getViewLifecycleOwner() is better than 'this' because then observer is removed after fragment view is destroyed
-        recyclerView.setAdapter(homeHorizontal);
+        binding.recentlyPlayedList.setAdapter(homeHorizontal);
         homeHorizontal.setListener(this);
-        homeViewModel.getRecentlyPlayedLiveData().observe(getViewLifecycleOwner(), recentlyPlayed -> {
-            recently_played_items.setText(getString(R.string.items, recentlyPlayed.getMitems().size()));
-            homeHorizontal.UpdateData(recentlyPlayed);
-            CheckProgressBar.checkprogressBar(recyclerView, progressBar_recently);
-        });
+        homeViewModel.getRecentlyPlayedLiveData().observe(getViewLifecycleOwner(), recentlyPlayed -> homeHorizontal.UpdateData(recentlyPlayed));
 
         //MyPlaylist List
-        MyPlaylistRecyclerView.setAdapter(myPlaylistsAdapter);
+        binding.MyPlaylistsList.setAdapter(myPlaylistsAdapter);
+        registerForContextMenu(binding.MyPlaylistsList);
         myPlaylistsAdapter.setPlaylistListener(this);
-        myPlaylistViewModel.getMyPlaylistLiveData("Bearer " + SharedPreferencesUtil.getPreferences(shared_preferences_auth, getActivity().getApplicationContext()).getString(access_token, null))
-                .observe(getViewLifecycleOwner(), myPlaylist -> {
-            my_playlist_items.setText(getString(R.string.items, myPlaylist.getMitems().size()));
-            myPlaylistsAdapter.UpdateList(myPlaylist);
-            CheckProgressBar.checkprogressBar(MyPlaylistRecyclerView, progressBar_playlists);
-        });
+        myPlaylistViewModel.getMyPlaylistLiveData().observe(getViewLifecycleOwner(), myPlaylist -> myPlaylistsAdapter.UpdateList(myPlaylist));
 
         //Recommended List
-        recommendedRecyclerView.setAdapter(recommendedAdapter);
+        binding.recommendedList.setAdapter(recommendedAdapter);
         recommendedAdapter.setOnItemListener(this);
-        homeViewModel.getRecommendations().observe(getViewLifecycleOwner(), recommendations -> {
-            recommended_items.setText(getString(R.string.items, recommendations.getMtracks().size()));
-            recommendedAdapter.UpdateData(recommendations);
-            CheckProgressBar.checkprogressBar(recommendedRecyclerView, progressBar_recommended);
-         });
+        homeViewModel.getRecommendationsLiveData().observe(getViewLifecycleOwner(), recommendations -> recommendedAdapter.UpdateData(recommendations));
 
         //Slider
-        sliderView.setSliderAdapter(sliderAdapter);
-        homeViewModel.getUserTopTracksMutableLiveData(5).observe(getViewLifecycleOwner(), userTopTracks -> {
-            sliderAdapter.UpdateData(userTopTracks);
-            CheckProgressBar.checkSliderProgress(sliderView, progressBar_slider);
-        });
+        binding.slider.setSliderAdapter(sliderAdapter);
+        homeViewModel.getUserTopTracksLiveData(5).observe(getViewLifecycleOwner(), userTopTracks -> sliderAdapter.UpdateData(userTopTracks));
 
-        registerForContextMenu(MyPlaylistRecyclerView);
-        return view;
+        return binding.getRoot();
     }
 
-    //Recently played songs on click
+    //start Player
     @Override
     public void onClick(int position, String title) {
         CurrentSongState currentSongState = CurrentSongState.getInstance();
@@ -148,7 +96,7 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
 
     @Override
     public void onPlaylistItemClick(String id) {
-        this.id = id;
+        myPlaylistViewModel.setPlaylist_id(id);
     }
 
     @Override
@@ -159,14 +107,13 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
 
     @Override
     public boolean onContextItemSelected(MenuItem item)  {
-
         switch(item.getItemId()) {
             case R.id.item_add:
                dialog.dialogshow();
                 return true;
             case R.id.item_delete:
-                if(id != null) {
-                    myPlaylistViewModel.deletePlaylist(id);
+                if(myPlaylistViewModel.getPlaylist_id() != null) {
+                    myPlaylistViewModel.deletePlaylist(myPlaylistViewModel.getPlaylist_id());
                 }
                 Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
                 return true;
@@ -196,10 +143,11 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
     //on recommended artist click
     @Override
     public void onClick(Recommendations recommendations, int position) {
-
         Bundle params = new Bundle();
-        params.putInt("position", position);
-        params.putSerializable("recommendations", recommendations);
+        params.putString(artist_name, recommendations.getMtracks().get(position).getMartists().get(0).getName());
+        params.putInt(artist_followers, recommendations.getMtracks().get(position).getArtist().getFollowers().getTotal());
+        params.putString(artist_image_url, recommendations.getMtracks().get(position).getArtist().getImages().get(0).getUrl());
+        params.putString(artist_id, recommendations.getMtracks().get(position).getMartists().get(0).getId());
         Fragment artist_fragment = new ArtistFragment();
         artist_fragment.setArguments(params);
         Objects.requireNonNull(getActivity())
