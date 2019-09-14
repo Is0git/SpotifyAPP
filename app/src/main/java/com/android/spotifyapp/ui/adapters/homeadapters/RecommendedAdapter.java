@@ -70,7 +70,10 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
 
                 itemView.setOnClickListener(view -> {
                     if(getAdapterPosition() >= 0) {
-                        onItemListener.onClick(recommendations, getAdapterPosition());
+                        onItemListener.onClick(recommendations.getMtracks().get(getAdapterPosition()).getMartists().get(0).getName(),
+                                recommendations.getMtracks().get(getAdapterPosition()).getArtist().getFollowers().getTotal(),
+                                recommendations.getMtracks().get(getAdapterPosition()).getArtist().getImages().get(0).getUrl(),
+                                recommendations.getMtracks().get(getAdapterPosition()).getMartists().get(0).getId());
                     }
                 });
 
@@ -78,6 +81,6 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
     }
 
     public interface onItemListener {
-        public void onClick(Recommendations recommendations, int position);
+        void onClick(String name, int followers, String image_url, String id);
     }
 }

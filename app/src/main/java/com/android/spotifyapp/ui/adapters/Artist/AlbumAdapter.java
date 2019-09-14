@@ -1,27 +1,27 @@
 package com.android.spotifyapp.ui.adapters.Artist;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
-import com.android.spotifyapp.R;
-import com.android.spotifyapp.data.network.model.byId.ArtistsAlbum;
-import com.squareup.picasso.Picasso;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
+import com.android.spotifyapp.data.network.model.byId.Artistsalbum;
+import com.android.spotifyapp.databinding.ArtistAlbumLayoutBinding;
+
+import static com.android.spotifyapp.utils.TAGS.OutOfBoundsTag;
 
 public class AlbumAdapter extends PagerAdapter {
-    private ArtistsAlbum artistsAlbum;
-    private View view;
+    private Artistsalbum artistsAlbum;
     private Context context;
+    private ArtistAlbumLayoutBinding artistAlbumLayoutBinding;
 
     public AlbumAdapter(Context context) {
         this.context = context;
-        artistsAlbum = new ArtistsAlbum();
+        artistsAlbum = new Artistsalbum();
     }
 
 
@@ -30,40 +30,29 @@ public class AlbumAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
-    public void setArtistsAlbum(ArtistsAlbum artistsAlbum) {
+    public void setArtistsAlbum(Artistsalbum artistsAlbum) {
         this.artistsAlbum = artistsAlbum;
         notifyDataSetChanged();
     }
-    @BindView(R.id.release_date_precision) TextView release_date_precision;
-    @BindView(R.id.artist_album_image) ImageView artist_album_image;
-    @BindView(R.id.songs_number_text) TextView songs_number_text;
-    @BindView(R.id.release_date_text) TextView release_date_text;
-    @BindView(R.id.artist_number_text) TextView artist_number_text;
-    @BindView(R.id.album_image_type) TextView album_image_type_text;
-    @BindView(R.id.artist_album_name_text) TextView album_name;
+
     @NonNull
     @Override
 
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        ViewGroup layout = (ViewGroup) LayoutInflater.from(container.getContext()).inflate(R.layout.artist_album_layout, container, false);
-        ButterKnife.bind(this, layout);
+        artistAlbumLayoutBinding = ArtistAlbumLayoutBinding.inflate(LayoutInflater.from(context), container, false);
+        final Artistsalbum.Items item = artistsAlbum.getItems().get(position);
+        artistAlbumLayoutBinding.setArtistAlbum(item);
 
-                if(artistsAlbum.getItems() != null) {
-            if(artistsAlbum.getItems().get(position).getArtists() != null) {
-                Picasso.with(context)
-                        .load(artistsAlbum.getItems().get(position).getImages().get(0).getUrl())
-                        .fit()
-                        .into(artist_album_image);
-            }
-            songs_number_text.setText(String.valueOf(artistsAlbum.getItems().get(position).getTotal_tracks()));
-            release_date_text.setText(artistsAlbum.getItems().get(position).getRelease_date());
-            artist_number_text.setText(String.valueOf(artistsAlbum.getItems().get(position).getArtists().size()));
-            album_image_type_text.setText(artistsAlbum.getItems().get(position).getAlbum_type());
-            album_name.setText(artistsAlbum.getItems().get(position).getName());
-            release_date_precision.setText(artistsAlbum.getItems().get(position).getRelease_date_precision().toUpperCase());
+        try {
+            artistAlbumLayoutBinding.setImageUrl(artistsAlbum.getItems().get(position).getImages().get(0).getUrl());
+        } catch (IndexOutOfBoundsException exception) {
+            Log.d(OutOfBoundsTag, "instantiateItem: " + exception.getMessage());
         }
-                container.addView(layout);
-                return layout;
+
+
+
+                container.addView(artistAlbumLayoutBinding.getRoot());
+                return artistAlbumLayoutBinding.getRoot();
 
     }
 

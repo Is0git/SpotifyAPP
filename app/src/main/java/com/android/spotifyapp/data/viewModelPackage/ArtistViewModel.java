@@ -6,27 +6,27 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.android.spotifyapp.data.network.model.byId.ArtistTopTracks;
-import com.android.spotifyapp.data.network.model.byId.ArtistsAlbum;
+import com.android.spotifyapp.data.network.model.byId.ArtistTopSongs;
+import com.android.spotifyapp.data.network.model.byId.Artistsalbum;
 import com.android.spotifyapp.data.network.model.byId.RelatedArtists;
 import com.android.spotifyapp.data.repositories.ArtistRepository;
 
 public class ArtistViewModel extends AndroidViewModel {
     private ArtistRepository artistRepository;
-    private LiveData<ArtistsAlbum> artistsAlbumLiveData;
-    private LiveData<ArtistTopTracks> artistTopTracksLiveData;
+    private LiveData<Artistsalbum> artistsAlbumLiveData;
+    private LiveData<ArtistTopSongs> artistTopTracksLiveData;
     private LiveData<RelatedArtists> relatedArtistsLiveData;
 
     public ArtistViewModel(@NonNull Application application) {
         super(application);
         artistRepository = ArtistRepository.getInstance(application);
     }
-    public LiveData<ArtistsAlbum> getArtistsAlbum(String id) {
+    public LiveData<Artistsalbum> getArtistsAlbum(String id) {
         artistsAlbumLiveData = artistRepository.getAlbums(id);
         return artistsAlbumLiveData;
     }
 
-    public LiveData<ArtistTopTracks> getTopTracks(String id, String country) {
+    public LiveData<ArtistTopSongs> getTopTracks(String id, String country) {
         artistTopTracksLiveData = artistRepository.getTopTracks(id, country);;
         return artistTopTracksLiveData;
     }
@@ -36,11 +36,11 @@ public class ArtistViewModel extends AndroidViewModel {
         return relatedArtistsLiveData;
     }
 
-    public LiveData<ArtistsAlbum> getArtistsAlbumLiveData() {
+    public LiveData<Artistsalbum> getArtistsAlbumLiveData() {
         return artistsAlbumLiveData;
     }
 
-    public LiveData<ArtistTopTracks> getArtistTopTracksLiveData() {
+    public LiveData<ArtistTopSongs> getArtistTopTracksLiveData() {
         return artistTopTracksLiveData;
     }
 

@@ -12,7 +12,6 @@ import com.android.spotifyapp.data.viewModelPackage.AuthViewModel;
 import com.android.spotifyapp.databinding.ActivityAuthBinding;
 import com.android.spotifyapp.di.components.DaggerAuthComponent;
 import com.android.spotifyapp.di.modules.ContextModule;
-import com.android.spotifyapp.di.modules.DataBindingModule;
 import com.android.spotifyapp.di.modules.ViewModelsModule;
 import com.android.spotifyapp.ui.POGO;
 import com.android.spotifyapp.utils.SharedPreferencesUtil;
@@ -46,7 +45,6 @@ public class AuthActivity extends AppCompatActivity {
         DaggerAuthComponent.builder()
                 .viewModelsModule(new ViewModelsModule(null))
                 .contextModule(new ContextModule(this))
-                .dataBindingModule(new DataBindingModule(null, null))
                 .build().inject(this);
         POGO pogo = new POGO("this", "that");
         binding.setPOGO(pogo);

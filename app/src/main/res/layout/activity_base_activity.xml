@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activities.BaseActivity">
-        <FrameLayout
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.activities.BaseActivity">
+        <fragment
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/youtube_fragment">
-        </FrameLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_nav"
-        android:id="@+id/youtube_fragment"/>
+            android:layout_above="@id/youtube_fragment"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/base_navigation">
+        </fragment>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_nav"
+            android:id="@+id/youtube_fragment"/>
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemIconTint="@color/bottomnavselector"
-        app:itemIconSize="27dp"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/nav_menu">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:itemIconTint="@color/bottomnavselector"
+            app:itemIconSize="27dp"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/nav_menu">
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

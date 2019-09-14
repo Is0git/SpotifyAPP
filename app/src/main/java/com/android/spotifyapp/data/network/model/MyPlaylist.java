@@ -7,7 +7,7 @@ import java.util.List;
 public class MyPlaylist {
     private String href;
     @SerializedName("items")
-    private List<items> mitems;
+    private List<Items> mitems;
     private int limit;
     private String next;
     private int offset;
@@ -18,7 +18,7 @@ public class MyPlaylist {
         return href;
     }
 
-    public List<items> getMitems() {
+    public List<Items> getMitems() {
         return mitems;
     }
 
@@ -42,7 +42,7 @@ public class MyPlaylist {
         return total;
     }
 
-    public static class items {
+    public static class Items {
         private boolean collaborative;
         @SerializedName("external_urls")
         private External_urls mexternal_urls;

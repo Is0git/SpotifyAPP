@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <import type="com.android.spotifyapp.data.network.model.MyPlaylist"/>
+
         <variable
             name="myPlaylist"
-            type="MyPlaylist" />
-        <variable
-            name="position"
-            type="int" />
+            type="com.android.spotifyapp.data.network.model.MyPlaylist.Items" />
+
         <variable
             name="image_url"
             type="String" />
@@ -47,7 +45,7 @@
                 android:fontFamily="@font/quicksand"
                 android:layout_centerInParent="true"
                 android:textAlignment="center"
-                android:text="@{myPlaylist.mitems.get(position).name, default = `NO NAME`}"
+                android:text="@{myPlaylist.name, default = `NO NAME`}"
                 android:textColor="@color/colorPrimary"/>
 
             <TextView
@@ -59,7 +57,7 @@
                 android:layout_marginTop="3dp"
                 android:textSize="11sp"
                 android:letterSpacing="1"
-                setPlaceHolderText="@{myPlaylist.mitems.get(position).mtracks.total}"
+                setPlaceHolderText="@{myPlaylist.mtracks.total}"
                 android:fontFamily="@font/quicksand"
                 android:textColor="@color/colorPrimary"
                 android:textAlignment="center"

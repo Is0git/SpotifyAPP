@@ -1,76 +1,54 @@
 package com.android.spotifyapp.data.network.model.byId;
 
+import com.android.spotifyapp.data.network.model.Artist;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ArtistTopTracks {
-    private List<Tracks> tracks;
+public class Artistsalbum {
+    private int limit;
+    private int total;
+    @SerializedName("items")
+    private List<Items> items;
 
-    public List<Tracks> getTracks() {
-        return tracks;
+    public int getLimit() {
+        return limit;
     }
 
-    public static class Tracks {
-        @SerializedName("album")
-        private Album album;
+    public int getTotal() {
+        return total;
+    }
+
+    public List<Items> getItems() {
+        return items;
+    }
+
+    public static class Items {
+        private String album_type;
         @SerializedName("artists")
-        private List<Artists> artists;
-        private String name;
-
-        public String getName() {
-            return name;
-        }
-
-        private int duration_ms;
-        private int eplicit;
-        private String id;
-        private Boolean is_local;
-        private int popularity;
-
-        public Album getAlbum() {
-            return album;
-        }
-
-        public List<Artists> getArtists() {
-            return artists;
-        }
-
-        public int getDuration_ms() {
-            return duration_ms;
-        }
-
-        public int getEplicit() {
-            return eplicit;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public Boolean getIs_local() {
-            return is_local;
-        }
-
-        public int getPopularity() {
-            return popularity;
-        }
-    }
-
-    public static class Album {
-        private String id;
+        private List<Artist> artists;
         @SerializedName("images")
         private List<Images> images;
+        private String id;
         private String name;
         private String release_date;
+        private String release_date_precision;
         private int total_tracks;
 
-        public String getId() {
-            return id;
+        public String getAlbum_type() {
+            return album_type;
+        }
+
+        public List<Artist> getArtists() {
+            return artists;
         }
 
         public List<Images> getImages() {
             return images;
+        }
+
+        public String getId() {
+            return id;
         }
 
         public String getName() {
@@ -81,6 +59,10 @@ public class ArtistTopTracks {
             return release_date;
         }
 
+        public String getRelease_date_precision() {
+            return release_date_precision;
+        }
+
         public int getTotal_tracks() {
             return total_tracks;
         }
@@ -89,6 +71,7 @@ public class ArtistTopTracks {
     public static class Artists {
         private String id;
         private String name;
+        private String type;
 
         public String getId() {
             return id;
@@ -96,6 +79,10 @@ public class ArtistTopTracks {
 
         public String getName() {
             return name;
+        }
+
+        public String getType() {
+            return type;
         }
     }
 

@@ -1,253 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="20dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginBottom="10dp"
-    android:paddingStart="20dp"
-    android:paddingTop="10dp"
-    android:paddingEnd="20dp"
-    android:paddingBottom="10dp">
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.android.spotifyapp.data.network.model.byId.Artistsalbum"/>
+        <variable
+            name="artistAlbum"
+            type="com.android.spotifyapp.data.network.model.byId.Artistsalbum.Items" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/album_cardview"
+        <variable
+            name="image_url"
+            type="String" />
+    </data>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="15dp">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
 
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/album_cardview"
             android:layout_width="match_parent"
-            android:layout_height="279dp">
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp">
 
-            <ImageView
-                android:id="@+id/artist_album_image"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:background="@drawable/image_placeholder" />
+                android:layout_height="279dp">
+
+                <ImageView
+                    android:id="@+id/artist_album_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:background="@drawable/image_placeholder"
+                    app:getImage="@{image_url}"
+                    app:getProgressBar="@{albumProgressBar}"/>
 
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="1"
-                android:background="@drawable/black_gradient" />
-            <TextView
-                android:id="@+id/artist_album_name_text"
-                android:layout_width="256dp"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/release_date_precision"
-                android:layout_alignStart="@id/release_date_precision"
-                android:fontFamily="@font/quicksand"
-                android:shadowColor="#94000000"
-                android:shadowDy="2"
-                android:shadowRadius="4"
-                android:layout_marginBottom="20dp"
-                android:text="@string/album_name"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/release_date_precision"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="20sp"
-                android:layout_marginBottom="20dp"
-                android:textSize="13sp"
-                android:fontFamily="@font/quicksand"
-                android:text="@string/release_date_precision"
-                android:textColor="@color/colorPrimary" />
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="5dp">
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorBlack"
-                    android:paddingStart="10dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="4dp">
-
-                    <TextView
-                        android:id="@+id/album_image_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="14dp"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/agencyfb"
-                        android:letterSpacing="0.5"
-                        android:text="TYPE"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-            </androidx.cardview.widget.CardView>
-
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/album_info_cardview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/album_cardview"
-        android:layout_marginTop="15dp"
-
-        app:cardCornerRadius="15dp"
-        app:cardElevation="0dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/colorMedium"
-                android:orientation="horizontal">
-
-                <RelativeLayout
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:ignore="UselessParent">
+                    android:alpha="1"
+                    android:background="@drawable/black_gradient" />
 
-                    <LinearLayout
-                        android:id="@+id/release_date_text_layout"
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/albumProgressBar"
+                    style="@style/SpinKitView.DoubleBounce"
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_gravity="center"
+                    app:SpinKit_Color="@color/colorAccent"
+                    android:layout_centerInParent="true" />
+                <TextView
+                    android:id="@+id/artist_album_name_text"
+                    android:layout_width="256dp"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/release_date_precision"
+                    android:layout_alignStart="@id/release_date_precision"
+                    android:fontFamily="@font/quicksand"
+                    android:shadowColor="#94000000"
+                    android:shadowDy="2"
+                    android:shadowRadius="4"
+                    android:layout_marginBottom="20dp"
+                    android:text="@{artistAlbum.name, default = `NO TITLE`}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/release_date_precision"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="20sp"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/quicksand"
+                    android:text="@{artistAlbum.release_date_precision.toUpperCase()}"
+                    android:textColor="@color/colorPrimary" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    app:cardCornerRadius="5dp">
+
+                    <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:orientation="vertical">
+                        android:background="@color/colorBlack"
+                        android:paddingStart="10dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="4dp">
 
                         <TextView
-                            android:id="@+id/release_date_text"
+                            android:id="@+id/album_image_type"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="14dp"
                             android:layout_gravity="center"
-                            android:fontFamily="@font/quicksand"
-                            android:text="@string/_0"
-                            android:textColor="@color/colorAccent"
-                            android:alpha="0.7"
-                            android:textSize="17sp"
+                            android:fontFamily="@font/agencyfb"
+                            android:letterSpacing="0.5"
+                            android:text="@{artistAlbum.album_type, default = type}"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/quicksand"
-                            android:gravity="center"
-                            android:text="@string/released"
-                            android:textColor="@color/colorArtist"
-                            android:textSize="15sp" />
-                    </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/songs_text_layout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="40dp"
-                        android:orientation="vertical">
+            </RelativeLayout>
 
-                        <TextView
-                            android:id="@+id/songs_number_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/quicksand"
-                            android:text="@string/_0"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="20sp"
-                            android:alpha="0.7"
-                            android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/quicksand"
-                            android:text="@string/songs"
-                            android:textColor="@color/colorArtist"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/album_info_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/album_cardview"
+            android:layout_marginTop="15dp"
 
-                    <LinearLayout
-                        android:id="@+id/artist_text_layout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginEnd="40dp"
-                        android:orientation="vertical">
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp">
 
-                        <TextView
-                            android:id="@+id/artist_number_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/quicksand"
-                            android:text="@string/_0"
-                            android:textColor="@color/colorBlack"
-                            android:alpha="0.7"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/quicksand"
-                            android:text="@string/artists"
-                            android:textColor="@color/colorArtist"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/colorMedium"
+                    android:orientation="horizontal">
 
                     <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toStartOf="@id/release_date_text_layout"
-                        android:layout_toEndOf="@id/songs_text_layout">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:ignore="UselessParent">
 
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:layout_centerHorizontal="true"
-                            android:background="@color/colorPrimary" />
+                        <LinearLayout
+                            android:id="@+id/release_date_text_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/release_date_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/quicksand"
+                                android:text="@{artistAlbum.release_date, default = `N/A`}"
+                                android:textColor="@color/colorAccent"
+                                android:alpha="0.7"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/quicksand"
+                                android:gravity="center"
+                                android:text="@string/released"
+                                android:textColor="@color/colorArtist"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/songs_text_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="40dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/songs_number_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/quicksand"
+                                android:text="@{String.valueOf(artistAlbum.total_tracks), default = 0}"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="20sp"
+                                android:alpha="0.7"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/quicksand"
+                                android:text="@string/songs"
+                                android:textColor="@color/colorArtist"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/artist_text_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginEnd="40dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/artist_number_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/quicksand"
+                                android:text="@{String.valueOf(artistAlbum.artists.size()), default = 0}"
+                                android:textColor="@color/colorBlack"
+                                android:alpha="0.7"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/quicksand"
+                                android:text="@string/artists"
+                                android:textColor="@color/colorArtist"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toStartOf="@id/release_date_text_layout"
+                            android:layout_toEndOf="@id/songs_text_layout">
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:background="@color/colorPrimary" />
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toStartOf="@id/artist_text_layout"
+                            android:layout_toEndOf="@id/release_date_text_layout">
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:background="@color/colorPrimary" />
+                        </RelativeLayout>
+
                     </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toStartOf="@id/artist_text_layout"
-                        android:layout_toEndOf="@id/release_date_text_layout">
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:layout_centerHorizontal="true"
-                            android:background="@color/colorPrimary" />
-                    </RelativeLayout>
-
-                </RelativeLayout>
-            </LinearLayout>
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-</RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</layout>

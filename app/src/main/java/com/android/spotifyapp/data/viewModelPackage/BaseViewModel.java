@@ -11,13 +11,19 @@ import com.android.spotifyapp.data.repositories.BaseRepository;
 
 public class BaseViewModel extends AndroidViewModel {
     private BaseRepository baseRepository;
+    private LiveData<User> userLiveData;
     public BaseViewModel(@NonNull Application application) {
         super(application);
         baseRepository = BaseRepository.getInstance(application);
 
     }
     public LiveData<User> getUser() {
-        return baseRepository.getUser();
+        userLiveData = baseRepository.getUser();
+        return userLiveData;
+    }
+
+    public LiveData<User> getUserLiveData() {
+        return userLiveData;
     }
 
     @Override

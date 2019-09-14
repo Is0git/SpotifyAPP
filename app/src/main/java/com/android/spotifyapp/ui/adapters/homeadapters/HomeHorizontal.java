@@ -29,8 +29,8 @@ public class HomeHorizontal extends RecyclerView.Adapter<HomeHorizontal.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final HomeHorizontal.MyViewHolder holder, int position) {
-        holder.homeHorizontalListBinding.setPosition(position);
-        holder.homeHorizontalListBinding.setRecentlyPlayed(recentlyPlayed);
+        final RecentlyPlayed.Items item = recentlyPlayed.getMitems().get(position);
+        holder.homeHorizontalListBinding.setRecentlyPlayed(item);
         holder.homeHorizontalListBinding.setOnClickInterface(onItemListener);
     }
 
@@ -65,7 +65,7 @@ public class HomeHorizontal extends RecyclerView.Adapter<HomeHorizontal.MyViewHo
     }
 
     public interface  OnItemListener{
-        void onClick(int position, String title);
+        void onClick(String title);
     }
 }
 

@@ -19,7 +19,6 @@ public class imageDownloader {
     @BindingAdapter({"getImage", "getProgressBar"})
     public static void getImage( ImageView imageView, String image_url, ProgressBar progressBar) {
         progressBar.setVisibility(View.VISIBLE);
-        Log.d("VIEWTEST", "onLoadSTart: " +image_url);
         Glide.with(imageView.getContext())
                 .load(image_url)
                 .centerCrop()
@@ -33,7 +32,6 @@ public class imageDownloader {
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        Log.d("VIEWTEST", "onLoadRead: " );
                         progressBar.setVisibility(View.INVISIBLE);
                         return false;
                     }

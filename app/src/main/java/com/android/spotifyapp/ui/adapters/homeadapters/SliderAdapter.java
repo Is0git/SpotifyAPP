@@ -3,24 +3,15 @@ package com.android.spotifyapp.ui.adapters.homeadapters;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.android.spotifyapp.R;
 import com.android.spotifyapp.data.network.model.UserTopTracks;
+import com.android.spotifyapp.databinding.SliderLayoutBinding;
 import com.smarteist.autoimageslider.SliderViewAdapter;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import static com.android.spotifyapp.utils.TAGS.TAG4;
+import static com.android.spotifyapp.utils.TAGS.OutOfBoundsTag;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapterVH> {
-    android.view.View view;
-    UserTopTracks userTopTracks;
+    private UserTopTracks userTopTracks;
 
     public SliderAdapter() {
         userTopTracks = new UserTopTracks();
@@ -28,30 +19,21 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
     @Override
     public SliderAdapterVH onCreateViewHolder(ViewGroup parent) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.slider_layout, null);
-        return new SliderAdapterVH(view);
+        SliderLayoutBinding sliderLayoutBinding = SliderLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new SliderAdapterVH(sliderLayoutBinding);
     }
 
     @Override
     public void onBindViewHolder(SliderAdapterVH viewHolder, int position) {
-        if(userTopTracks.getItems() != null) {
+                final UserTopTracks.Items item = userTopTracks.getItems().get(position);
+                viewHolder.sliderLayoutBinding.setUserTopTrack(item);
                     try {
-                        viewHolder.slider_title.setText(userTopTracks.getItems().get(position).getName());
-                        Picasso.with(view.getContext()).load(userTopTracks.getItems().get(position).getAlbum().getImages().get(0).getUrl()).fit().into(viewHolder.slider_image, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                                com.android.spotifyapp.utils.ProgressBar.progressBarUnvisible(viewHolder.progressBar);
-                            }
+                        viewHolder.sliderLayoutBinding.setImageUrl(userTopTracks.getItems().get(position).getAlbum().getImages().get(0).getUrl());
 
-                            @Override
-                            public void onError() {
-                                com.android.spotifyapp.utils.ProgressBar.progressBarUnvisible(viewHolder.progressBar);
-                            }
-                        });
-                    } catch (Exception e) {
-                        Log.d(TAG4, "onBindViewHolder: " + e.getMessage());
+                    } catch (IndexOutOfBoundsException exception) {
+                        Log.d(OutOfBoundsTag, "onBindViewHolder: " + exception.getMessage());
                     }
-            }
+
         }
 
 
@@ -67,14 +49,12 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         notifyDataSetChanged();
     }
     class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
+        SliderLayoutBinding sliderLayoutBinding;
 
-        @BindView(R.id.slider_title)  TextView slider_title;
-        @BindView(R.id.slider_image)ImageView slider_image;
-        @BindView(R.id.progressBar_slider_bg)ProgressBar progressBar;
+        public SliderAdapterVH(SliderLayoutBinding sliderLayoutBinding) {
+            super(sliderLayoutBinding.getRoot());
+            this.sliderLayoutBinding = sliderLayoutBinding;
 
-        public SliderAdapterVH(android.view.View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
 
         }
     }

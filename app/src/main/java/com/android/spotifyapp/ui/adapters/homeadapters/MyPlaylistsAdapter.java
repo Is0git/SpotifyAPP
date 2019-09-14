@@ -29,8 +29,8 @@ public class MyPlaylistsAdapter extends RecyclerView.Adapter<MyPlaylistsAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final MyPlaylistsAdapter.MyViewHolder holder, int position) {
-            holder.myplaylistHorizontalListBinding.setMyPlaylist(myPlaylist);
-            holder.myplaylistHorizontalListBinding.setPosition(position);
+        final MyPlaylist.Items item = myPlaylist.getMitems().get(position);
+            holder.myplaylistHorizontalListBinding.setMyPlaylist(item);
             try {
                 holder.myplaylistHorizontalListBinding.setImageUrl(myPlaylist.getMitems().get(position).getMimages().get(0).getUrl());
             } catch (IndexOutOfBoundsException exception) {

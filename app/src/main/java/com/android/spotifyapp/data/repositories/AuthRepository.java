@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.android.spotifyapp.data.network.model.AccessToken;
 import com.android.spotifyapp.data.network.services.AuthService;
 import com.android.spotifyapp.di.components.DaggerLoginComponent;
-import com.android.spotifyapp.di.components.LoginComponent;
 import com.android.spotifyapp.di.qualifiers.AuthQualifier;
 
 import javax.inject.Inject;
@@ -33,6 +32,7 @@ public class AuthRepository {
 
     private AuthRepository() {
         compositeDisposable = new CompositeDisposable();
+        DaggerLoginComponent.create().inject(this);
     }
 
     public static AuthRepository getInstance() {
@@ -45,8 +45,6 @@ public class AuthRepository {
 
     public LiveData<AccessToken> getAccess(String code) {
         final MutableLiveData<AccessToken> access_data = new MutableLiveData<>();
-        LoginComponent loginComponent = DaggerLoginComponent.create();
-        loginComponent.inject(this);
         AuthService authService = retrofit.create(AuthService.class);
         Observable<AccessToken> observable = authService.getAccessToken(CLIENT_ID, CLIENT_SECRET, code, REDIRECT_URL, AUTH_CODE);
         observable.subscribeOn(Schedulers.io())

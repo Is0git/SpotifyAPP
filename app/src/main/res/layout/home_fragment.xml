@@ -4,9 +4,7 @@
 
     <import type="android.view.View"/>
     <import type="androidx.lifecycle.AndroidViewModel"/>
-
       <import type="androidx.lifecycle.LiveData"/>
-
     <import type="com.android.spotifyapp.data.viewModelPackage.MyPlaylistViewModel"/>
     <import type="com.android.spotifyapp.data.viewModelPackage.HomeViewModel"/>
 

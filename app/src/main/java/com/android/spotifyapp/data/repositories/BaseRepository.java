@@ -8,9 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.android.spotifyapp.App;
 import com.android.spotifyapp.data.network.model.User;
 import com.android.spotifyapp.data.network.services.UserService;
-import com.android.spotifyapp.di.components.BaseComponent;
-import com.android.spotifyapp.di.components.DaggerBaseComponent;
-import com.android.spotifyapp.di.modules.ActivityViewModelModule;
+import com.android.spotifyapp.di.components.DaggerBaseRepositoryComponent;
 import com.android.spotifyapp.di.qualifiers.RetrofitQualifier;
 import com.android.spotifyapp.utils.SharedPreferencesUtil;
 
@@ -40,11 +38,9 @@ public class BaseRepository {
         mutableLiveData = new MutableLiveData<>();
         compositeDisposable = new CompositeDisposable();
         token = SharedPreferencesUtil.getPreferences(shared_preferences_auth, application).getString(access_token, "NO TOKEN");
-        BaseComponent component = DaggerBaseComponent.builder()
+        DaggerBaseRepositoryComponent.builder()
                 .appComponent(((App) application.getApplicationContext()).getAppComponent())
-                .activityViewModelModule(new ActivityViewModelModule(null))
-                .build();
-        component.inject(this);
+                .build().inject(this);
     }
 
     public static BaseRepository getInstance(Application application) {

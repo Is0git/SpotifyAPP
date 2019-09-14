@@ -12,7 +12,7 @@ import com.android.spotifyapp.databinding.ArtistLayoutBinding;
 import com.android.spotifyapp.di.components.DaggerArtistComponent;
 import com.android.spotifyapp.di.modules.AdaptersModule;
 import com.android.spotifyapp.di.modules.ContextModule;
-import com.android.spotifyapp.di.modules.DataBindingModule;
+import com.android.spotifyapp.di.modules.FragmentBindingModule;
 import com.android.spotifyapp.di.modules.ViewModelsModule;
 import com.android.spotifyapp.ui.adapters.Artist.AlbumAdapter;
 import com.android.spotifyapp.ui.adapters.Artist.RelatedArtistsAdapter;
@@ -42,7 +42,7 @@ public class ArtistFragment extends Fragment {
                 .viewModelsModule(new ViewModelsModule(this))
                 .adaptersModule(new AdaptersModule())
                 .contextModule(new ContextModule(this.getActivity()))
-                .dataBindingModule(new DataBindingModule(inflater, container))
+                .fragmentBindingModule(new FragmentBindingModule(inflater, container))
                 .build().injectFragment(this);
 
         //data from past fragment
@@ -58,7 +58,7 @@ public class ArtistFragment extends Fragment {
                 .observe(getViewLifecycleOwner(), artistTopTracks -> topSongsAdapter.updateData(artistTopTracks));
 
         //Related artists
-       binding.relatedArtistsRecylerView.setAdapter(relatedArtistsAdapter);
+        binding.relatedArtistsRecylerView.setAdapter(relatedArtistsAdapter);
         viewModel.getRelatedArtists(binding.getArtistId()).observe(getViewLifecycleOwner(), relatedArtists -> relatedArtistsAdapter.setRelatedArtists(relatedArtists));
 
         return binding.getRoot();

@@ -8,11 +8,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import com.android.spotifyapp.App;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.android.spotifyapp.R;
 import com.android.spotifyapp.data.network.model.Post.MyPlaylistPost;
 import com.android.spotifyapp.data.network.model.Recommendations;
@@ -21,18 +24,21 @@ import com.android.spotifyapp.data.viewModelPackage.MyPlaylistViewModel;
 import com.android.spotifyapp.databinding.HomeFragmentBinding;
 import com.android.spotifyapp.di.components.DaggerHomeComponent;
 import com.android.spotifyapp.di.modules.ContextModule;
-import com.android.spotifyapp.di.modules.DataBindingModule;
 import com.android.spotifyapp.di.modules.DialogModule;
+import com.android.spotifyapp.di.modules.FragmentBindingModule;
 import com.android.spotifyapp.di.modules.ViewModelsModule;
-import com.android.spotifyapp.ui.activities.BaseActivity;
 import com.android.spotifyapp.ui.adapters.homeadapters.HomeHorizontal;
 import com.android.spotifyapp.ui.adapters.homeadapters.MyPlaylistsAdapter;
 import com.android.spotifyapp.ui.adapters.homeadapters.RecommendedAdapter;
 import com.android.spotifyapp.ui.adapters.homeadapters.SliderAdapter;
 import com.android.spotifyapp.ui.globalState.CurrentSongState;
+import com.android.spotifyapp.ui.youtube.Player;
 import com.android.spotifyapp.utils.Dialogs.Dialog;
+
 import java.util.Objects;
+
 import javax.inject.Inject;
+
 import static com.android.spotifyapp.utils.Contracts.BundleKeys.artist_followers;
 import static com.android.spotifyapp.utils.Contracts.BundleKeys.artist_id;
 import static com.android.spotifyapp.utils.Contracts.BundleKeys.artist_image_url;
@@ -50,19 +56,22 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
 
     @Inject Dialog dialog;
 
-    @Inject HomeFragmentBinding binding;
-
+    HomeFragmentBinding binding;
+    NavController navigation;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = HomeFragmentBinding.inflate(inflater, container, false);
         //Dagger
         DaggerHomeComponent.builder()
                 .viewModelsModule(new ViewModelsModule(this))
                 .dialogModule(new DialogModule(this))
                 .contextModule(new ContextModule(getActivity()))
-                .dataBindingModule(new DataBindingModule(inflater, container))
+                .fragmentBindingModule(new FragmentBindingModule(inflater, container))
                 .build().injectFragment(this);
-
+        binding.setPlaylistViewModel(myPlaylistViewModel);
+        binding.setHomeViewModel(homeViewModel);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         //Recently played list
         binding.recentlyPlayedList.setAdapter(homeHorizontal);
         homeHorizontal.setListener(this);
@@ -86,12 +95,19 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
         return binding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navigation = Navigation.findNavController(view);
+
+    }
+
     //start Player
     @Override
-    public void onClick(int position, String title) {
+    public void onClick(String title) {
         CurrentSongState currentSongState = CurrentSongState.getInstance();
         currentSongState.setTitle(title);
-        ((BaseActivity) Objects.requireNonNull(getActivity())).startPlayer();
+        Player.startPlayer(getActivity());
     }
 
     @Override
@@ -142,20 +158,22 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
     }
     //on recommended artist click
     @Override
-    public void onClick(Recommendations recommendations, int position) {
+    public void onClick(String name, int followers, String image_url, String id) {
         Bundle params = new Bundle();
-        params.putString(artist_name, recommendations.getMtracks().get(position).getMartists().get(0).getName());
-        params.putInt(artist_followers, recommendations.getMtracks().get(position).getArtist().getFollowers().getTotal());
-        params.putString(artist_image_url, recommendations.getMtracks().get(position).getArtist().getImages().get(0).getUrl());
-        params.putString(artist_id, recommendations.getMtracks().get(position).getMartists().get(0).getId());
-        Fragment artist_fragment = new ArtistFragment();
-        artist_fragment.setArguments(params);
-        Objects.requireNonNull(getActivity())
-                .getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, artist_fragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(null)
-                .commitAllowingStateLoss();
+        params.putString(artist_name, name);
+        params.putInt(artist_followers, followers);
+        params.putString(artist_image_url, image_url);
+        params.putString(artist_id,  id);
+//        Fragment artist_fragment = new ArtistFragment();
+//        artist_fragment.setArguments(params);
+//        Objects.requireNonNull(getActivity())
+//                .getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fragment_container, artist_fragment)
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                .addToBackStack(null)
+//                .commitAllowingStateLoss();
+        navigation.navigate(R.id.action_homeFragment_to_artistFragment, params);
+
     }
 }
 

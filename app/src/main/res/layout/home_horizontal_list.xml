@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <import type="com.android.spotifyapp.data.network.model.RecentlyPlayed"/>
+
         <import type="com.android.spotifyapp.data.network.model.Artist"/>
         <import type="com.android.spotifyapp.ui.adapters.homeadapters.HomeHorizontal.OnItemListener"/>
         <import type="java.util.List"/>
-        <variable
-            name="Artists"
-            type="Artist" />
+
         <variable
             name="recentlyPlayed"
-            type="RecentlyPlayed"/>
-        <variable
-            name="position"
-            type="int" />
+            type="com.android.spotifyapp.data.network.model.RecentlyPlayed.Items"/>
+
         <variable
             name="onClickInterface"
             type="OnItemListener" />
@@ -35,13 +31,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
-                android:onClick="@{() -> onClickInterface.onClick(position, recentlyPlayed.mitems.get(position).track.artists.get(0).name + recentlyPlayed.mitems.get(position).track.name)}"
+                android:onClick="@{() -> onClickInterface.onClick(recentlyPlayed.track.artists.get(0).name + recentlyPlayed.track.name)}"
                 android:elevation="10dp">
                 <ImageView
                     android:id="@+id/album_image"
                     android:layout_width="99dp"
                     android:layout_height="100dp"
-                    app:getImage="@{recentlyPlayed.mitems.get(position).track.albums.images.get(0).url}"
+                    app:getImage="@{recentlyPlayed.track.albums.images.get(0).url}"
                     app:getProgressBar="@{progressBar}"
                     android:background="@drawable/image_placeholder" />
 
@@ -56,8 +52,8 @@
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="@style/SpinKitView.DoubleBounce"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:duplicateParentState="true"
                     android:visibility="invisible"
@@ -77,7 +73,7 @@
             android:layout_below="@id/image_layout"
             android:layout_alignStart="@id/image_layout"
             android:layout_height="wrap_content"
-            android:text="@{recentlyPlayed.mitems.get(position).track.name}" />
+            android:text="@{recentlyPlayed.track.name}" />
         <TextView
             android:fontFamily="@font/myriadpro"
             android:layout_marginTop="6dp"
@@ -88,6 +84,6 @@
             android:layout_below="@id/song_name"
             android:layout_alignStart="@id/image_layout"
             android:textSize="11sp"
-            android:text="@{recentlyPlayed.mitems.get(position).track.artists.get(0).name}"/>
+            android:text="@{recentlyPlayed.track.artists.get(0).name}"/>
     </RelativeLayout>
 </layout>

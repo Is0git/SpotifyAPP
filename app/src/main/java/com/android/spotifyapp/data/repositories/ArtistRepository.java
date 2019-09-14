@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.android.spotifyapp.App;
-import com.android.spotifyapp.data.network.model.byId.ArtistTopTracks;
-import com.android.spotifyapp.data.network.model.byId.ArtistsAlbum;
+import com.android.spotifyapp.data.network.model.byId.ArtistTopSongs;
+import com.android.spotifyapp.data.network.model.byId.Artistsalbum;
 import com.android.spotifyapp.data.network.model.byId.RelatedArtists;
 import com.android.spotifyapp.data.network.services.ArtistService;
 import com.android.spotifyapp.di.components.DaggerArtistRepositoryComponent;
@@ -31,8 +31,8 @@ import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.s
 public class ArtistRepository {
     private static ArtistRepository artistRepository;
     private ArtistService artistService;
-    private MutableLiveData<ArtistsAlbum> artistsAlbumMutableLiveData;
-    private MutableLiveData<ArtistTopTracks> artistTopTracksMutableLiveData;
+    private MutableLiveData<Artistsalbum> artistsAlbumMutableLiveData;
+    private MutableLiveData<ArtistTopSongs> artistTopTracksMutableLiveData;
     private MutableLiveData<RelatedArtists> relatedArtistsMutableLiveData;
     private CompositeDisposable disposable;
     private String token;
@@ -60,20 +60,20 @@ public class ArtistRepository {
         return artistRepository;
     }
 
-    public LiveData<ArtistsAlbum> getAlbums(String id) {
+    public LiveData<Artistsalbum> getAlbums(String id) {
         artistService = retrofit.create(ArtistService.class);
-        Observable<ArtistsAlbum> artistsAlbumObservable = artistService.getArtistAlbum("Bearer " + token, id);
+        Observable<Artistsalbum> artistsAlbumObservable = artistService.getArtistAlbum("Bearer " + token, id);
         artistsAlbumObservable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<ArtistsAlbum>() {
+                .subscribe(new Observer<Artistsalbum>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposable.add(d);
                     }
 
                     @Override
-                    public void onNext(ArtistsAlbum artistsAlbum) {
+                    public void onNext(Artistsalbum artistsAlbum) {
                             artistsAlbumMutableLiveData.setValue(artistsAlbum);
                     }
 
@@ -89,19 +89,19 @@ public class ArtistRepository {
                 return artistsAlbumMutableLiveData;
     }
 
-    public LiveData<ArtistTopTracks> getTopTracks(String id, String country) {
-        Observable<ArtistTopTracks> artistTopTracksObservable = artistService.getArtistTopTracks("Bearer " + token, id, country);
+    public LiveData<ArtistTopSongs> getTopTracks(String id, String country) {
+        Observable<ArtistTopSongs> artistTopTracksObservable = artistService.getArtistTopTracks("Bearer " + token, id, country);
         artistTopTracksObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ArtistTopTracks>() {
+                .subscribe(new Observer<ArtistTopSongs>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposable.add(d);
                     }
 
                     @Override
-                    public void onNext(ArtistTopTracks artistTopTracks) {
+                    public void onNext(ArtistTopSongs artistTopTracks) {
                         artistTopTracksMutableLiveData.setValue(artistTopTracks);
                     }
 
