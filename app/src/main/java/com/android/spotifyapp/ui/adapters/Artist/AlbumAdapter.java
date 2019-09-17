@@ -1,12 +1,14 @@
 package com.android.spotifyapp.ui.adapters.Artist;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.android.spotifyapp.data.network.model.byId.Artistsalbum;
@@ -54,6 +56,16 @@ public class AlbumAdapter extends PagerAdapter {
                 container.addView(artistAlbumLayoutBinding.getRoot());
                 return artistAlbumLayoutBinding.getRoot();
 
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
+    @Override
+    public void restoreState(@Nullable Parcelable state, @Nullable ClassLoader loader) {
+        super.restoreState(state, loader);
     }
 
     @Override

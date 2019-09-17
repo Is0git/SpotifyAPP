@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
   <data>
-
     <import type="android.view.View"/>
     <import type="androidx.lifecycle.AndroidViewModel"/>
       <import type="androidx.lifecycle.LiveData"/>
@@ -15,6 +14,9 @@
     <variable
         name="homeViewModel"
         type="HomeViewModel" />
+    <variable
+        name="listeners"
+        type="com.android.spotifyapp.ui.listeners.ListenersInterface" />
   </data>
 
 
@@ -107,12 +109,14 @@
             android:background="@drawable/next" />
 
         <TextView
+            android:id="@+id/view_rencently_played"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15sp"
             android:layout_toLeftOf="@id/next"
             android:layout_centerVertical="true"
             android:textColor="@color/colorAccent"
+            android:onClick="@{listeners::recentlyPlayedViewAllClick}"
             android:textSize="12sp"
             android:fontFamily="@font/myriadpro"
             android:text="VIEW ALL" />
@@ -189,6 +193,7 @@
             android:background="@drawable/next" />
 
         <TextView
+            android:id="@+id/view_my_playlists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15sp"
@@ -196,6 +201,7 @@
             android:layout_centerVertical="true"
             android:textColor="@color/colorAccent"
             android:textSize="12sp"
+            android:onClick="@{listeners::recentlyPlayedViewAllClick}"
             android:fontFamily="@font/myriadpro"
             android:text="VIEW ALL" />
 
@@ -274,6 +280,7 @@
             android:background="@drawable/next" />
 
         <TextView
+            android:id="@+id/view_recommended_artists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15sp"
@@ -282,6 +289,7 @@
             android:textColor="@color/colorAccent"
             android:textSize="12sp"
             android:fontFamily="@font/myriadpro"
+            android:onClick="@{listeners::recentlyPlayedViewAllClick}"
             android:text="VIEW ALL" />
 
       </RelativeLayout>

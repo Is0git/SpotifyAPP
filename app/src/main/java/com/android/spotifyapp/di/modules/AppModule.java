@@ -2,6 +2,8 @@ package com.android.spotifyapp.di.modules;
 
 import com.android.spotifyapp.di.qualifiers.RetrofitQualifier;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -26,7 +28,11 @@ public class AppModule {
     @Provides
     @Singleton
     OkHttpClient okHttpClient(HttpLoggingInterceptor httpLoggingInterceptor) {
-        return new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
+        return new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor)
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .writeTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .build();
     }
     @Provides
     @Singleton

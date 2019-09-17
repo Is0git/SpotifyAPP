@@ -62,7 +62,7 @@ public class ArtistRepository {
 
     public LiveData<Artistsalbum> getAlbums(String id) {
         artistService = retrofit.create(ArtistService.class);
-        Observable<Artistsalbum> artistsAlbumObservable = artistService.getArtistAlbum("Bearer " + token, id);
+        Observable<Artistsalbum> artistsAlbumObservable = artistService.getArtistAlbum("Bearer " + token, id, 10, 0);
         artistsAlbumObservable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

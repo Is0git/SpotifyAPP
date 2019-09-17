@@ -16,5 +16,5 @@ public interface ArtistService {
     @GET("v1/artists/{id}/related-artists")
     Observable<RelatedArtists> getRelatedArtistsObservable(@Header("Authorization") String access_token, @Path("id") String id);
     @GET("v1/artists/{id}/albums")
-    Observable<Artistsalbum> getArtistAlbum(@Header("Authorization") String access_token, @Path("id") String id);
+    Observable<Artistsalbum> getArtistAlbum(@Header("Authorization") String access_token, @Path("id") String id, @Query("limit") int limit, @Query("offset") int offset);
 }

@@ -3,25 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/home">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/home"
         android:name="com.android.spotifyapp.ui.fragment.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_artistFragment"
             app:destination="@id/artistFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_playlistFragment"
-            app:destination="@id/playlistFragment" />
+            android:id="@+id/action_home_to_recentlyPlayedFragment"
+            app:destination="@+id/recentlyPlayedFragment" />
+        <action
+            android:id="@+id/action_home_to_myPlaylistFragment"
+            app:destination="@id/myPlaylistFragment" />
+        <action
+            android:id="@+id/action_home_to_recommendedArtistsFragment"
+            app:destination="@id/recommendedArtistsFragment" />
     </fragment>
     <fragment
         android:id="@+id/artistFragment"
         android:name="com.android.spotifyapp.ui.fragment.ArtistFragment"
-        android:label="ArtistFragment" />
+        android:label="ArtistFragment">
+        <action
+            android:id="@+id/action_artistFragment_self"
+            app:destination="@id/artistFragment" />
+        <action
+            android:id="@+id/action_artistFragment_to_albumFullFragment"
+            app:destination="@id/albumFullFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/playlistFragment"
+        android:id="@+id/my_playlists"
         android:name="com.android.spotifyapp.ui.fragment.PlaylistFragment"
         android:label="PlaylistFragment" />
+    <fragment
+        android:id="@+id/search"
+        android:name="com.android.spotifyapp.ui.fragment.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/recentlyPlayedFragment"
+        android:name="com.android.spotifyapp.ui.fragment.view.RecentlyPlayedFragment"
+        android:label="RecentlyPlayedFragment" />
+    <fragment
+        android:id="@+id/myPlaylistFragment"
+        android:name="com.android.spotifyapp.ui.fragment.view.MyPlaylistFragment"
+        android:label="MyPlaylistFragment" />
+    <fragment
+        android:id="@+id/recommendedArtistsFragment"
+        android:name="com.android.spotifyapp.ui.fragment.view.RecommendedArtistsFragment"
+        android:label="RecommendedArtistsFragment" />
+    <fragment
+        android:id="@+id/albumFullFragment"
+        android:name="com.android.spotifyapp.ui.adapters.Artist.ArtistFull.AlbumFullFragment"
+        android:label="AlbumFullFragment" />
 </navigation>

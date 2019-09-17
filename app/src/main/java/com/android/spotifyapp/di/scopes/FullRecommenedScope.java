@@ -6,6 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 import javax.inject.Scope;
 
 @Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface HomeFragmentScope {
+@Retention(RetentionPolicy.CLASS)
+public @interface FullRecommenedScope {
 }

@@ -2,8 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.android.spotifyapp.data.viewModelPackage.ArtistViewModel"/>
+
         <import type="android.view.View"/>
+        <variable
+            name="listener"
+            type="com.android.spotifyapp.ui.listeners.ListenersInterface" />
        <variable
            name="artist_name"
            type="String" />
@@ -18,7 +21,7 @@
             type="String" />
         <variable
             name="artistViewModel"
-            type="ArtistViewModel" />
+            type="com.android.spotifyapp.data.viewModelPackage.ArtistViewModel" />
     </data>
     <ScrollView
         android:orientation="vertical"
@@ -173,6 +176,7 @@
                     android:layout_centerVertical="true"
                     android:textColor="@color/colorAccent"
                     android:textSize="12sp"
+                    android:onClick="@{listener::recentlyPlayedViewAllClick}"
                     android:fontFamily="@font/myriadpro"
                     android:text="@string/view_all" />
 

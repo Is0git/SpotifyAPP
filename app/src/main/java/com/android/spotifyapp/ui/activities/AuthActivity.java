@@ -102,10 +102,10 @@ public class AuthActivity extends AppCompatActivity {
                 if(!accessToken.getAccess_token().isEmpty()) {
                     SharedPreferences.Editor editor = SharedPreferencesUtil.getPreferences(shared_preferences_auth, getApplicationContext()).edit();
                     editor.putString(access_token, accessToken.getAccess_token()).apply();
-//                    progressBarVisible(binding.progressBar);
                     binding.setVisibility(true);
                     Intent intent = new Intent(getBaseContext(), BaseActivity.class);
                     startActivity(intent);
+
                 }
             });
         }

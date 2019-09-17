@@ -1,7 +1,6 @@
 package com.android.spotifyapp.ui.adapters.Artist;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,7 @@ import com.android.spotifyapp.databinding.TopSongsListBinding;
 
 public class TopSongsAdapter extends RecyclerView.Adapter<TopSongsAdapter.MyViewHolder> {
     ArtistTopSongs artistTopTracks;
-    View view;
+
 
     public TopSongsAdapter() {
        artistTopTracks = new ArtistTopSongs();
