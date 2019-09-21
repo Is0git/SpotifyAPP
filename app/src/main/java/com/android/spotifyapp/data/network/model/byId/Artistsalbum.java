@@ -1,11 +1,17 @@
 package com.android.spotifyapp.data.network.model.byId;
 
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+
 import com.android.spotifyapp.data.network.model.Artist;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Artistsalbum {
+public class Artistsalbum implements Serializable{
     private int limit;
     private int total;
     @SerializedName("items")
@@ -65,6 +71,29 @@ public class Artistsalbum {
 
         public int getTotal_tracks() {
             return total_tracks;
+        }
+
+        public static final DiffUtil.ItemCallback<Artistsalbum.Items> DIFF_CALLBACK =
+                new DiffUtil.ItemCallback<Items>() {
+                    @Override
+                    public boolean areItemsTheSame(@NonNull Items oldItem, @NonNull Items newItem) {
+                        return oldItem.getId() == newItem.getId();
+                    }
+
+                    @Override
+                    public boolean areContentsTheSame(@NonNull Items oldItem, @NonNull Items newItem) {
+                        return oldItem.equals(newItem);
+                    }
+                };
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+
+            Artistsalbum.Items item = (Artistsalbum.Items) obj;
+
+            return ((Items) obj).id == this.id && ((Items) obj).name == this.name;
         }
     }
 

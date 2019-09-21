@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.android.spotifyapp.ui.States.NetworkState"/>
+        <import type="android.view.View"/>
+        <variable
+            name="ViewModel"
+            type="com.android.spotifyapp.data.viewModelPackage.RecentlyPlayedViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/view_under"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/colorMediumDarker"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_above"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/colorMedium"
+            app:layout_constraintTop_toTopOf="@id/view_under" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:fontFamily="@font/myriadpro"
+            android:text="RECENTLY PLAYED"
+            android:textColor="@color/colorBlack"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/view_above"
+            app:layout_constraintLeft_toLeftOf="@id/view_above"
+            app:layout_constraintTop_toTopOf="@id/view_above" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recently_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="52dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/view_under"
+            tools:layout_editor_absoluteX="-16dp" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@color/colorMedium"
+            android:alpha="@{ViewModel.state == NetworkState.START ? 0.5f : 0}"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progressBarRecentlyPlayed"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="@{ViewModel.state == NetworkState.START ? View.VISIBLE : View.INVISIBLE}"
+            app:SpinKit_Color="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/view2"
+            app:layout_constraintEnd_toEndOf="@+id/view2"
+            app:layout_constraintStart_toStartOf="@+id/view2"
+            app:layout_constraintTop_toTopOf="@+id/view2" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progressBar"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
+            android:layout_gravity="center"
+            android:visibility="@{ViewModel.pagedListLiveData.getValue() == null ? View.VISIBLE : View.INVISIBLE}"
+            app:SpinKit_Color="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

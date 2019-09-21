@@ -1,5 +1,10 @@
 package com.android.spotifyapp.data.network.model;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+
+import com.android.spotifyapp.R;
+import com.android.spotifyapp.data.network.model.byId.Artistsalbum;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -16,13 +21,29 @@ public class RecentlyPlayed {
         @SerializedName("track")
         private Track track;
         private String played_at;
-
         public Track getTrack() {
             return track;
         }
 
         public String getPlayed_at() {
             return played_at;
+        }
+
+        public static final DiffUtil.ItemCallback<RecentlyPlayed.Items> callback = new DiffUtil.ItemCallback<Items>() {
+            @Override
+            public boolean areItemsTheSame(@NonNull Items oldItem, @NonNull Items newItem) {
+                return oldItem.getTrack().getId() == newItem.getTrack().getId();
+            }
+
+            @Override
+            public boolean areContentsTheSame(@NonNull Items oldItem, @NonNull Items newItem) {
+                return oldItem.equals(newItem);
+            }
+        };
+
+        @Override
+        public boolean equals(Object obj) {
+            return ((RecentlyPlayed.Items) obj).getTrack().getName() == this.getTrack().getName() && ((Items) obj).getTrack().artists.get(0).getName() == this.getTrack().getArtists().get(0).getName();
         }
     }
     public static class Track {

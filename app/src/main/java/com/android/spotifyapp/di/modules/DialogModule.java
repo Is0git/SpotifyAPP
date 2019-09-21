@@ -3,11 +3,9 @@ package com.android.spotifyapp.di.modules;
 import android.content.Context;
 
 
-import androidx.fragment.app.Fragment;
-
 import com.android.spotifyapp.di.qualifiers.ActivityContext;
 import com.android.spotifyapp.ui.fragment.HomeFragment;
-import com.android.spotifyapp.utils.Dialogs.Dialog;
+import com.android.spotifyapp.ui.Dialogs.Dialog;
 
 import dagger.Module;
 import dagger.Provides;

@@ -4,6 +4,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
 import com.android.spotifyapp.databinding.ArtistLayoutBinding;
+import com.android.spotifyapp.databinding.PlaylistTracksFragmentBinding;
 
 import static com.android.spotifyapp.utils.Contracts.BundleKeys.artist_followers;
 import static com.android.spotifyapp.utils.Contracts.BundleKeys.artist_id;
@@ -16,6 +17,6 @@ public class ArgumentsHelper {
         ((ArtistLayoutBinding)binding).setArtistFollowers(fragment.getArguments().getInt(artist_followers));
         ((ArtistLayoutBinding)binding).setArtistImageUrl(fragment.getArguments().getString(artist_image_url));
         ((ArtistLayoutBinding) binding).setArtistId(fragment.getArguments().getString(artist_id));
-
     }
+
 }

@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_home_to_recommendedArtistsFragment"
             app:destination="@id/recommendedArtistsFragment" />
+        <action
+            android:id="@+id/action_home_to_playlistTracksFragment"
+            app:destination="@id/playlistTracksFragment" />
     </fragment>
     <fragment
         android:id="@+id/artistFragment"
@@ -49,13 +52,21 @@
     <fragment
         android:id="@+id/myPlaylistFragment"
         android:name="com.android.spotifyapp.ui.fragment.view.MyPlaylistFragment"
-        android:label="MyPlaylistFragment" />
+        android:label="MyPlaylistFragment" >
+        <action
+            android:id="@+id/action_myPlaylistFragment_to_playlistTracksFragment"
+            app:destination="@id/playlistTracksFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recommendedArtistsFragment"
         android:name="com.android.spotifyapp.ui.fragment.view.RecommendedArtistsFragment"
         android:label="RecommendedArtistsFragment" />
     <fragment
         android:id="@+id/albumFullFragment"
-        android:name="com.android.spotifyapp.ui.adapters.Artist.ArtistFull.AlbumFullFragment"
+        android:name="com.android.spotifyapp.ui.fragment.AlbumFullFragment"
         android:label="AlbumFullFragment" />
+    <fragment
+        android:id="@+id/playlistTracksFragment"
+        android:name="com.android.spotifyapp.ui.fragment.PlaylistTracksFragment"
+        android:label="PlaylistTracksFragment" />
 </navigation>

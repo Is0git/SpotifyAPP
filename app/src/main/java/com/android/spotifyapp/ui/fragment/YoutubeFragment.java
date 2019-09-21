@@ -23,7 +23,7 @@ import com.android.spotifyapp.di.components.DaggerYoutubeComponent;
 import com.android.spotifyapp.di.components.YoutubeComponent;
 import com.android.spotifyapp.di.modules.ViewModelsModule;
 import com.android.spotifyapp.di.modules.YoutubeModule;
-import com.android.spotifyapp.ui.globalState.CurrentSongState;
+import com.android.spotifyapp.ui.States.CurrentSongState;
 import com.android.spotifyapp.ui.listeners.OnSwipeListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;

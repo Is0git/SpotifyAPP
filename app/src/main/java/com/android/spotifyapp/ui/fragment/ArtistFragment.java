@@ -32,6 +32,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import static com.android.spotifyapp.utils.ArgumentsHelper.getBundleArguments;
+import static com.android.spotifyapp.utils.Contracts.BundleKeys.artist_id;
 import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.shared_preferences_user;
 import static com.android.spotifyapp.utils.Contracts.SharedPreferencesContract.user_country;
 
@@ -92,6 +93,10 @@ public class ArtistFragment extends Fragment implements RecommendedAdapter.onIte
 
     @Override
     public void recentlyPlayedViewAllClick(View view) {
-        navController.navigate(R.id.action_artistFragment_to_albumFullFragment);
+        Bundle bundle = new Bundle();
+        if (getArguments() != null) {
+            bundle.putString("id", getArguments().getString(artist_id));
+        }
+        navController.navigate(R.id.action_artistFragment_to_albumFullFragment, bundle);
     }
 }

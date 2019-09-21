@@ -36,6 +36,7 @@ public class MyPlaylistsAdapter extends RecyclerView.Adapter<MyPlaylistsAdapter.
             } catch (IndexOutOfBoundsException exception) {
                 Log.d("EXCEPTION", "onBindViewHolder: " + exception.getMessage());
             }
+            holder.myplaylistHorizontalListBinding.setOnClickInterface(playlistListener);
 
     }
 
@@ -56,13 +57,20 @@ public class MyPlaylistsAdapter extends RecyclerView.Adapter<MyPlaylistsAdapter.
         notifyDataSetChanged();
 
     }
+    public interface PlaylistListener {
+
+        void onPlaylistItemClick(String id);
+
+        void playlistOnClick(String id, String name);
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder  {
         MyplaylistHorizontalListBinding myplaylistHorizontalListBinding;
         public MyViewHolder(@NonNull MyplaylistHorizontalListBinding myplaylistHorizontalListBinding) {
             super(myplaylistHorizontalListBinding.getRoot());
             this.myplaylistHorizontalListBinding = myplaylistHorizontalListBinding;
             myplaylistHorizontalListBinding.getRoot().setOnLongClickListener(view -> {
-                if(getAdapterPosition() >= 0) {
+                if (getAdapterPosition() >= 0) {
                     playlistListener.onPlaylistItemClick(myPlaylist.getMitems().get(getAdapterPosition()).getId());
                 }
                 return false;
@@ -72,8 +80,6 @@ public class MyPlaylistsAdapter extends RecyclerView.Adapter<MyPlaylistsAdapter.
 
 
     }
-    public interface PlaylistListener {
 
-        void onPlaylistItemClick(String id);
-        }
+
 }

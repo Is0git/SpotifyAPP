@@ -1,5 +1,8 @@
 package com.android.spotifyapp.data.network.model;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -112,6 +115,23 @@ public class MyPlaylist {
 
         public String getUri() {
             return uri;
+        }
+
+        public static final DiffUtil.ItemCallback<MyPlaylist.Items> CALLBACK = new DiffUtil.ItemCallback<Items>() {
+            @Override
+            public boolean areItemsTheSame(@NonNull Items oldItem, @NonNull Items newItem) {
+                return oldItem.getId() == newItem.getId();
+            }
+
+            @Override
+            public boolean areContentsTheSame(@NonNull Items oldItem, @NonNull Items newItem) {
+                return false;
+            }
+        };
+
+        @Override
+        public boolean equals(Object object) {
+            return ((MyPlaylist.Items) object).getName().equals(this.getName()) && ((MyPlaylist.Items) object).getMtracks().getTotal() == this.getMtracks().getTotal() ;
         }
     }
 

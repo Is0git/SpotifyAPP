@@ -30,9 +30,9 @@ import com.android.spotifyapp.ui.adapters.homeadapters.HomeHorizontal;
 import com.android.spotifyapp.ui.adapters.homeadapters.MyPlaylistsAdapter;
 import com.android.spotifyapp.ui.adapters.homeadapters.RecommendedAdapter;
 import com.android.spotifyapp.ui.adapters.homeadapters.SliderAdapter;
-import com.android.spotifyapp.ui.globalState.CurrentSongState;
+import com.android.spotifyapp.ui.States.CurrentSongState;
 import com.android.spotifyapp.ui.youtube.Player;
-import com.android.spotifyapp.utils.Dialogs.Dialog;
+import com.android.spotifyapp.ui.Dialogs.Dialog;
 import com.android.spotifyapp.utils.onClickHandler;
 import com.android.spotifyapp.ui.listeners.ListenersInterface;
 
@@ -88,7 +88,6 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
         homeViewModel.getUserTopTracksLiveData(5).observe(getViewLifecycleOwner(), userTopTracks -> sliderAdapter.UpdateData(userTopTracks));
 
         binding.invalidateAll();
-
         return binding.getRoot();
     }
 
@@ -110,6 +109,11 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
     @Override
     public void onPlaylistItemClick(String id) {
         myPlaylistViewModel.setPlaylist_id(id);
+    }
+
+    @Override
+    public void playlistOnClick(String id, String name) {
+        onClickHandler.onPlaylistClick(name, id, navigation);
     }
 
     @Override
@@ -160,47 +164,6 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("ONTEST", "onStart: ");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("ONTEST", "onResume: ");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("ONTEST", "onPause: ");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("ONTEST", "onStop: ");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("ONTEST", "onDestroyView: ");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("ONTEST", "onDestroy: ");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d("ONTEST", "onDetach: ");
-    }
 
     @Override
     public void recentlyPlayedViewAllClick(View view) {
@@ -210,9 +173,6 @@ public class HomeFragment extends Fragment implements HomeHorizontal.OnItemListe
                 break;
             case R.id.view_my_playlists:
                 navigation.navigate(R.id.action_home_to_myPlaylistFragment);
-                break;
-            case R.id.view_recommended_artists:
-                navigation.navigate(R.id.action_home_to_recommendedArtistsFragment);
                 break;
         }
 

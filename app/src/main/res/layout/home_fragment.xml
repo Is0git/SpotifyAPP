@@ -57,7 +57,6 @@
             android:visibility="@{homeViewModel.userTopTracks.items == null ? View.VISIBLE : View.INVISIBLE}"
             android:layout_height="190dp"
             android:layout_gravity="center"
-
             app:SpinKit_Color="@color/colorAccent"
             android:layout_centerInParent="true" />
       </RelativeLayout>
@@ -270,27 +269,7 @@
             setPlaceHolderText="@{homeViewModel.recommendations.mtracks.size()}"
             android:text="@string/_0_items"/>
 
-        <ImageView
-            android:id="@+id/next3"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/next" />
 
-        <TextView
-            android:id="@+id/view_recommended_artists"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15sp"
-            android:layout_toLeftOf="@id/next3"
-            android:layout_centerVertical="true"
-            android:textColor="@color/colorAccent"
-            android:textSize="12sp"
-            android:fontFamily="@font/myriadpro"
-            android:onClick="@{listeners::recentlyPlayedViewAllClick}"
-            android:text="VIEW ALL" />
 
       </RelativeLayout>
       <RelativeLayout

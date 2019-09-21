@@ -1,4 +1,4 @@
-package com.android.spotifyapp.ui.globalState;
+package com.android.spotifyapp.ui.States;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 
