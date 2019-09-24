@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.android.spotifyapp.data.viewModelPackage.RecentlyPlayedViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.RecentlyPlayedViewModel;
 import com.android.spotifyapp.databinding.FullRecentlyplayedBinding;
 import com.android.spotifyapp.di.components.DaggerRecentlyPlayedComponent;
 import com.android.spotifyapp.di.modules.AdaptersModule;

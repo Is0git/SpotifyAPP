@@ -6,13 +6,16 @@ import android.view.LayoutInflater;
 import androidx.fragment.app.Fragment;
 
 import com.android.spotifyapp.R;
-import com.android.spotifyapp.data.viewModelPackage.AlbumFullViewModel;
-import com.android.spotifyapp.data.viewModelPackage.ArtistViewModel;
-import com.android.spotifyapp.data.viewModelPackage.HomeViewModel;
-import com.android.spotifyapp.data.viewModelPackage.MyPlaylistFullViewModel;
-import com.android.spotifyapp.data.viewModelPackage.MyPlaylistViewModel;
-import com.android.spotifyapp.data.viewModelPackage.PlaylistTracksViewModel;
-import com.android.spotifyapp.data.viewModelPackage.RecentlyPlayedViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.AlbumFullViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.ArtistViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.HomeViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.MyPlaylistFullViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.MyPlaylistViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.PlaylistTracksViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.RecentlyPlayedViewModel;
+import com.android.spotifyapp.data.viewModelPackage.libraryViewModels.AlbumsLibraryViewModel;
+import com.android.spotifyapp.data.viewModelPackage.libraryViewModels.SongsLibraryViewModel;
+import com.android.spotifyapp.databinding.AlbumFragmentBinding;
 import com.android.spotifyapp.databinding.AlbumFullFragmentBinding;
 import com.android.spotifyapp.databinding.ArtistLayoutBinding;
 import com.android.spotifyapp.databinding.FullMyplaylistsBinding;
@@ -20,16 +23,18 @@ import com.android.spotifyapp.databinding.FullRecentlyplayedBinding;
 import com.android.spotifyapp.databinding.FullRecommendedBinding;
 import com.android.spotifyapp.databinding.HomeFragmentBinding;
 import com.android.spotifyapp.databinding.PlaylistTracksFragmentBinding;
+import com.android.spotifyapp.databinding.SongsFragmentBinding;
 import com.android.spotifyapp.di.scopes.AlbumFullFragmentScope;
+import com.android.spotifyapp.di.scopes.AlbumScope;
 import com.android.spotifyapp.di.scopes.ArtistFragmentScope;
 import com.android.spotifyapp.di.scopes.FullPlaylistScope;
 import com.android.spotifyapp.di.scopes.FullRecommenedScope;
 import com.android.spotifyapp.di.scopes.HomeFragmentScope;
 import com.android.spotifyapp.di.scopes.PlaylistTracksScope;
 import com.android.spotifyapp.di.scopes.RecentlyPlayedScope;
+import com.android.spotifyapp.di.scopes.SongsLibraryScope;
 import com.android.spotifyapp.ui.activities.BaseActivity;
 import com.android.spotifyapp.ui.fragment.ArtistFragment;
-import com.android.spotifyapp.ui.fragment.PlaylistTracksFragment;
 
 import java.util.Objects;
 
@@ -109,5 +114,24 @@ public class FragmentBindingModule {
         return playlistTracksFragmentBinding;
 
     }
+
+    @Provides
+    @SongsLibraryScope
+    SongsFragmentBinding songsFragmentBinding(SongsLibraryViewModel songsLibraryViewModel) {
+        SongsFragmentBinding songsFragmentBinding = SongsFragmentBinding.inflate(inflater);
+        songsFragmentBinding.setLifecycleOwner(fragment.getViewLifecycleOwner());
+        songsFragmentBinding.setViewModel(songsLibraryViewModel);
+        return songsFragmentBinding;
+    }
+
+    @Provides
+    @AlbumScope
+    AlbumFragmentBinding albumFragmentBinding(AlbumsLibraryViewModel albumsLibraryViewModel) {
+        AlbumFragmentBinding albumFragmentBinding = AlbumFragmentBinding.inflate(inflater);
+        albumFragmentBinding.setViewModel(albumsLibraryViewModel);
+        albumFragmentBinding.setLifecycleOwner(fragment.getViewLifecycleOwner());
+        return albumFragmentBinding;
+    }
+
 
 }

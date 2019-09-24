@@ -10,9 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.spotifyapp.R;
-import com.android.spotifyapp.data.viewModelPackage.MyPlaylistFullViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.MyPlaylistFullViewModel;
 import com.android.spotifyapp.databinding.FullMyplaylistsBinding;
 import com.android.spotifyapp.di.components.DaggerFullPlaylistComponent;
 import com.android.spotifyapp.di.modules.AdaptersModule;
@@ -41,6 +43,20 @@ public class MyPlaylistFragment extends Fragment implements MyPlaylistsAdapter.P
         myPlaylistFullAdapter.setListener(this);
         albumFullViewModel.getLiveDataPageList().observe(getViewLifecycleOwner(), items -> myPlaylistFullAdapter.submitList(items));
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+             
+
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(fullMyplaylistsBinding.fullRecyclerView);
+
         albumFullViewModel.getState().observe(getViewLifecycleOwner(), networkState -> {});
         return fullMyplaylistsBinding.getRoot();
     }
@@ -49,6 +65,7 @@ public class MyPlaylistFragment extends Fragment implements MyPlaylistsAdapter.P
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+
     }
 
     @Override

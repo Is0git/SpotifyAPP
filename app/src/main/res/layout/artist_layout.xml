@@ -21,7 +21,7 @@
             type="String" />
         <variable
             name="artistViewModel"
-            type="com.android.spotifyapp.data.viewModelPackage.ArtistViewModel" />
+            type="com.android.spotifyapp.data.viewModelPackage.homeViewModels.ArtistViewModel" />
     </data>
     <ScrollView
         android:orientation="vertical"

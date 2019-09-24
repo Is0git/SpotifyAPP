@@ -3,7 +3,7 @@
     <data>
         <variable
             name="base_viewmodel"
-            type="com.android.spotifyapp.data.viewModelPackage.BaseViewModel" />
+            type="com.android.spotifyapp.data.viewModelPackage.homeViewModels.BaseViewModel" />
     </data>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

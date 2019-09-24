@@ -1,6 +1,6 @@
 package com.android.spotifyapp.di.components;
 
-import com.android.spotifyapp.data.repositories.AuthRepository;
+import com.android.spotifyapp.data.repositories.homeRepositories.AuthRepository;
 import com.android.spotifyapp.di.modules.LoginModule;
 
 import javax.inject.Singleton;

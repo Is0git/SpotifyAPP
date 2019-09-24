@@ -12,7 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.android.spotifyapp.R;
-import com.android.spotifyapp.data.viewModelPackage.ArtistViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.ArtistViewModel;
 import com.android.spotifyapp.databinding.ArtistLayoutBinding;
 import com.android.spotifyapp.di.components.DaggerArtistComponent;
 import com.android.spotifyapp.di.modules.AdaptersModule;

@@ -5,7 +5,7 @@
         <import type="com.android.spotifyapp.ui.States.NetworkState"/>
         <variable
             name="albumViewModel"
-            type="com.android.spotifyapp.data.viewModelPackage.AlbumFullViewModel" />
+            type="com.android.spotifyapp.data.viewModelPackage.homeViewModels.AlbumFullViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical" android:layout_width="match_parent"

@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="ViewModel"
-            type="com.android.spotifyapp.data.viewModelPackage.MyPlaylistFullViewModel" />
+            type="com.android.spotifyapp.data.viewModelPackage.homeViewModels.MyPlaylistFullViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

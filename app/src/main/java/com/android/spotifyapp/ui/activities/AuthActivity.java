@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.spotifyapp.data.viewModelPackage.AuthViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.AuthViewModel;
 import com.android.spotifyapp.databinding.ActivityAuthBinding;
 import com.android.spotifyapp.di.components.DaggerAuthComponent;
 import com.android.spotifyapp.di.modules.ContextModule;

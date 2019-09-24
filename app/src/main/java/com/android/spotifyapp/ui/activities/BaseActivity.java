@@ -6,7 +6,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import com.android.spotifyapp.R;
-import com.android.spotifyapp.data.viewModelPackage.BaseViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.BaseViewModel;
 import com.android.spotifyapp.databinding.ActionbarBinding;
 import com.android.spotifyapp.databinding.ActivityBaseActivityBinding;
 import com.android.spotifyapp.di.components.DaggerBaseComponent;
@@ -39,6 +39,9 @@ public class BaseActivity extends AppCompatActivity {
         viewModel.getUser().observe(this, user -> UserUtil.userSave(user, BaseActivity.this));
         NavController navController = Navigation.findNavController(this, R.id.fragment_container);
         NavigationUI.setupWithNavController(activityBaseActivityBinding.bottomNav, navController);
+
+
+
 
 
     }

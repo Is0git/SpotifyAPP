@@ -4,12 +4,13 @@ import android.content.Context;
 
 import com.android.spotifyapp.di.qualifiers.ActivityContext;
 import com.android.spotifyapp.di.scopes.AlbumFullFragmentScope;
+import com.android.spotifyapp.di.scopes.AlbumScope;
 import com.android.spotifyapp.di.scopes.ArtistFragmentScope;
 import com.android.spotifyapp.di.scopes.FullPlaylistScope;
 import com.android.spotifyapp.di.scopes.HomeFragmentScope;
-import com.android.spotifyapp.di.scopes.MyPlaylistFullScope;
 import com.android.spotifyapp.di.scopes.PlaylistTracksScope;
 import com.android.spotifyapp.di.scopes.RecentlyPlayedScope;
+import com.android.spotifyapp.di.scopes.SongsLibraryScope;
 import com.android.spotifyapp.ui.adapters.Artist.AlbumAdapter;
 import com.android.spotifyapp.ui.adapters.Artist.ArtistFull.AlbumFullAdapter;
 import com.android.spotifyapp.ui.adapters.Artist.ArtistFull.MyPlaylistFullAdapter;
@@ -21,6 +22,9 @@ import com.android.spotifyapp.ui.adapters.homeadapters.HomeHorizontal;
 import com.android.spotifyapp.ui.adapters.homeadapters.MyPlaylistsAdapter;
 import com.android.spotifyapp.ui.adapters.homeadapters.RecommendedAdapter;
 import com.android.spotifyapp.ui.adapters.homeadapters.SliderAdapter;
+import com.android.spotifyapp.ui.adapters.libraryadapters.AlbumLibraryAdapter;
+import com.android.spotifyapp.ui.adapters.libraryadapters.SongsAdapter;
+
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,57 +33,69 @@ import dagger.Provides;
 public class AdaptersModule {
     @Provides
     @HomeFragmentScope
-    public HomeHorizontal homeHorizontal() {
+    HomeHorizontal homeHorizontal() {
         return new HomeHorizontal();
     }
 
     @Provides
     @HomeFragmentScope
-    public MyPlaylistsAdapter myPlaylistsAdapter() {
+    MyPlaylistsAdapter myPlaylistsAdapter() {
         return new MyPlaylistsAdapter();
     }
 
     @Provides
     @HomeFragmentScope
-    public RecommendedAdapter recommendedAdapter() {
+    RecommendedAdapter recommendedAdapter() {
         return new RecommendedAdapter();
     }
 
     @Provides
     @HomeFragmentScope
-    public SliderAdapter sliderAdapter() {return new SliderAdapter(); }
+    SliderAdapter sliderAdapter() {return new SliderAdapter(); }
 
     @Provides
     @ArtistFragmentScope
-    public TopSongsAdapter topSongsAdapter() {return new TopSongsAdapter();}
+    TopSongsAdapter topSongsAdapter() {return new TopSongsAdapter();}
 
     @Provides
     @ArtistFragmentScope
-    public RelatedArtistsAdapter relatedArtistsAdapter() {return new RelatedArtistsAdapter();}
+    RelatedArtistsAdapter relatedArtistsAdapter() {return new RelatedArtistsAdapter();}
 
     @Provides
     @ArtistFragmentScope
-    public AlbumAdapter albumAdapter(@ActivityContext  Context context) {
+    AlbumAdapter albumAdapter(@ActivityContext  Context context) {
         return new AlbumAdapter(context);
     }
     @Provides
     @RecentlyPlayedScope
-    public RecentlyPlayedFull recentlyPlayedFull() {
+    RecentlyPlayedFull recentlyPlayedFull() {
         return new RecentlyPlayedFull();
     }
 
     @Provides
     @FullPlaylistScope
-    public MyPlaylistFullAdapter myPlaylistFullAdapter() {
+    MyPlaylistFullAdapter myPlaylistFullAdapter() {
         return new MyPlaylistFullAdapter();
     }
 
     @Provides
     @AlbumFullFragmentScope
-    public AlbumFullAdapter albumFullAdapter() {return new AlbumFullAdapter();}
+    AlbumFullAdapter albumFullAdapter() {return new AlbumFullAdapter();}
 
     @Provides
     @PlaylistTracksScope
-    public PlaylistTracksAdapter playlistTracksAdapter() {return new PlaylistTracksAdapter();}
+    PlaylistTracksAdapter playlistTracksAdapter() {return new PlaylistTracksAdapter();}
+
+    @Provides
+    @SongsLibraryScope
+    SongsAdapter songsAdapter() {
+        return new SongsAdapter();
+    }
+
+    @AlbumScope
+    @Provides
+    AlbumLibraryAdapter albumLibraryAdapter() {
+        return new AlbumLibraryAdapter();
+    }
 
 }

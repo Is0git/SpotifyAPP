@@ -1,6 +1,6 @@
 package com.android.spotifyapp.di.components;
 
-import com.android.spotifyapp.data.repositories.MyPlaylistFullRepository;
+import com.android.spotifyapp.data.repositories.homeRepositories.MyPlaylistFullRepository;
 import com.android.spotifyapp.di.scopes.MyPlaylistFullScope;
 
 import dagger.Component;

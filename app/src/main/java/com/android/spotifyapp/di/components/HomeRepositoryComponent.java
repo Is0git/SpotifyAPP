@@ -1,6 +1,6 @@
 package com.android.spotifyapp.di.components;
 
-import com.android.spotifyapp.data.repositories.HomeRepository;
+import com.android.spotifyapp.data.repositories.homeRepositories.HomeRepository;
 import com.android.spotifyapp.di.scopes.HomeRepositoryScope;
 
 import dagger.Component;

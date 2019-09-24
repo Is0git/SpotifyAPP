@@ -5,21 +5,25 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.android.spotifyapp.data.viewModelPackage.AlbumFullViewModel;
-import com.android.spotifyapp.data.viewModelPackage.ArtistViewModel;
-import com.android.spotifyapp.data.viewModelPackage.AuthViewModel;
-import com.android.spotifyapp.data.viewModelPackage.HomeViewModel;
-import com.android.spotifyapp.data.viewModelPackage.MyPlaylistFullViewModel;
-import com.android.spotifyapp.data.viewModelPackage.MyPlaylistViewModel;
-import com.android.spotifyapp.data.viewModelPackage.PlaylistTracksViewModel;
-import com.android.spotifyapp.data.viewModelPackage.RecentlyPlayedViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.AlbumFullViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.ArtistViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.AuthViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.HomeViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.MyPlaylistFullViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.MyPlaylistViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.PlaylistTracksViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.RecentlyPlayedViewModel;
 import com.android.spotifyapp.data.viewModelPackage.YoutubePlayerViewmodel;
+import com.android.spotifyapp.data.viewModelPackage.libraryViewModels.AlbumsLibraryViewModel;
+import com.android.spotifyapp.data.viewModelPackage.libraryViewModels.SongsLibraryViewModel;
 import com.android.spotifyapp.di.qualifiers.ActivityContext;
 import com.android.spotifyapp.di.scopes.AlbumFullFragmentScope;
+import com.android.spotifyapp.di.scopes.AlbumScope;
 import com.android.spotifyapp.di.scopes.AuthScope;
 import com.android.spotifyapp.di.scopes.FullPlaylistScope;
 import com.android.spotifyapp.di.scopes.PlaylistTracksScope;
 import com.android.spotifyapp.di.scopes.RecentlyPlayedScope;
+import com.android.spotifyapp.di.scopes.SongsLibraryScope;
 import com.android.spotifyapp.di.scopes.YoutubeScope;
 import com.android.spotifyapp.ui.activities.AuthActivity;
 import com.android.spotifyapp.ui.fragment.AlbumFullFragment;
@@ -42,53 +46,64 @@ public class ViewModelsModule {
 
     @Provides
     public HomeViewModel homeViewModel() {
-        return ViewModelProviders.of((HomeFragment) fragment).get(HomeViewModel.class);
+        return ViewModelProviders.of(fragment.getActivity()).get(HomeViewModel.class);
     }
 
     @Provides
-    public MyPlaylistViewModel myPlaylistViewModel() {
-        return ViewModelProviders.of((HomeFragment) fragment).get(MyPlaylistViewModel.class);
+     MyPlaylistViewModel myPlaylistViewModel() {
+        return ViewModelProviders.of(fragment.getActivity()).get(MyPlaylistViewModel.class);
 
     }
 
     @Provides
     @YoutubeScope
-    public YoutubePlayerViewmodel youtubePlayerViewmodel() {
-        return ViewModelProviders.of((YoutubeFragment) fragment).get(YoutubePlayerViewmodel.class);
+     YoutubePlayerViewmodel youtubePlayerViewmodel() {
+        return ViewModelProviders.of(fragment.getActivity()).get(YoutubePlayerViewmodel.class);
     }
 
     @Provides
-    public ArtistViewModel artistViewModel() {
-        return ViewModelProviders.of((ArtistFragment) fragment).get(ArtistViewModel.class);
+     ArtistViewModel artistViewModel() {
+        return ViewModelProviders.of(fragment.getActivity()).get(ArtistViewModel.class);
     }
 
     @Provides
     @AuthScope
 
-    public AuthViewModel authViewModel(@ActivityContext Context context) {
+     AuthViewModel authViewModel(@ActivityContext Context context) {
         return ViewModelProviders.of((AuthActivity) context).get(AuthViewModel.class);
     }
     @Provides
     @RecentlyPlayedScope
 
-    public RecentlyPlayedViewModel recentlyPlayedViewModel() {
-        return ViewModelProviders.of((RecentlyPlayedFragment) fragment).get(RecentlyPlayedViewModel.class);
+     RecentlyPlayedViewModel recentlyPlayedViewModel() {
+        return ViewModelProviders.of(fragment.getActivity()).get(RecentlyPlayedViewModel.class);
     }
 
     @Provides
     @FullPlaylistScope
-    public MyPlaylistFullViewModel myPlaylistFullViewModel() {
-        return ViewModelProviders.of((MyPlaylistFragment) fragment).get(MyPlaylistFullViewModel.class);
+     MyPlaylistFullViewModel myPlaylistFullViewModel() {
+        return ViewModelProviders.of(fragment.getActivity()).get(MyPlaylistFullViewModel.class);
     }
     @Provides
     @AlbumFullFragmentScope
-    public AlbumFullViewModel albumFullViewModel() {
-        return ViewModelProviders.of((AlbumFullFragment)fragment).get(AlbumFullViewModel.class);
+     AlbumFullViewModel albumFullViewModel() {
+        return ViewModelProviders.of(fragment.getActivity()).get(AlbumFullViewModel.class);
     }
 
     @Provides
     @PlaylistTracksScope
-    public PlaylistTracksViewModel playlistTracksViewModel() {
-        return ViewModelProviders.of(fragment).get(PlaylistTracksViewModel.class);
+     PlaylistTracksViewModel playlistTracksViewModel() {
+        return ViewModelProviders.of(fragment.getActivity()).get(PlaylistTracksViewModel.class);
+    }
+
+    @Provides
+    @SongsLibraryScope
+    SongsLibraryViewModel songsLibraryViewModel() {
+        return ViewModelProviders.of(fragment.getActivity()).get(SongsLibraryViewModel.class);
+    }
+    @Provides
+    @AlbumScope
+    AlbumsLibraryViewModel albumsLibraryViewModel() {
+        return ViewModelProviders.of(fragment.getActivity()).get(AlbumsLibraryViewModel.class);
     }
 }

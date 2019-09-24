@@ -4,16 +4,16 @@
     <import type="android.view.View"/>
     <import type="androidx.lifecycle.AndroidViewModel"/>
       <import type="androidx.lifecycle.LiveData"/>
-    <import type="com.android.spotifyapp.data.viewModelPackage.MyPlaylistViewModel"/>
-    <import type="com.android.spotifyapp.data.viewModelPackage.HomeViewModel"/>
+    <import type="com.android.spotifyapp.data.viewModelPackage.homeViewModels.MyPlaylistViewModel"/>
+    <import type="com.android.spotifyapp.data.viewModelPackage.homeViewModels.HomeViewModel"/>
 
     <variable
         name="playlistViewModel"
-        type="MyPlaylistViewModel" />
+        type="com.android.spotifyapp.data.viewModelPackage.homeViewModels.MyPlaylistViewModel" />
 
     <variable
         name="homeViewModel"
-        type="HomeViewModel" />
+        type="com.android.spotifyapp.data.viewModelPackage.homeViewModels.HomeViewModel" />
     <variable
         name="listeners"
         type="com.android.spotifyapp.ui.listeners.ListenersInterface" />

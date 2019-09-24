@@ -1,6 +1,6 @@
 package com.android.spotifyapp.di.components;
 
-import com.android.spotifyapp.data.repositories.MyPlaylistRepository;
+import com.android.spotifyapp.data.repositories.homeRepositories.MyPlaylistRepository;
 import com.android.spotifyapp.di.modules.MyplaylistModule;
 
 import javax.inject.Singleton;

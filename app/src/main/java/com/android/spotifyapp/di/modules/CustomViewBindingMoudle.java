@@ -3,7 +3,7 @@ package com.android.spotifyapp.di.modules;
 import android.content.Context;
 import android.view.LayoutInflater;
 
-import com.android.spotifyapp.data.viewModelPackage.BaseViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.BaseViewModel;
 import com.android.spotifyapp.databinding.ActionbarBinding;
 import com.android.spotifyapp.di.qualifiers.ActivityContext;
 import com.android.spotifyapp.di.scopes.BaseActivityScope;

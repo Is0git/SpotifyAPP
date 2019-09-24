@@ -11,18 +11,38 @@
         android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_artistFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim"
             app:destination="@id/artistFragment" />
         <action
             android:id="@+id/action_home_to_recentlyPlayedFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim"
             app:destination="@+id/recentlyPlayedFragment" />
         <action
             android:id="@+id/action_home_to_myPlaylistFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim"
             app:destination="@id/myPlaylistFragment" />
         <action
             android:id="@+id/action_home_to_recommendedArtistsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim"
             app:destination="@id/recommendedArtistsFragment" />
         <action
             android:id="@+id/action_home_to_playlistTracksFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim"
             app:destination="@id/playlistTracksFragment" />
     </fragment>
     <fragment
@@ -38,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/my_playlists"
-        android:name="com.android.spotifyapp.ui.fragment.PlaylistFragment"
+        android:name="com.android.spotifyapp.ui.fragment.libraryfragments.PlaylistFragment"
         android:label="PlaylistFragment" />
     <fragment
         android:id="@+id/search"
@@ -68,5 +88,9 @@
     <fragment
         android:id="@+id/playlistTracksFragment"
         android:name="com.android.spotifyapp.ui.fragment.PlaylistTracksFragment"
-        android:label="PlaylistTracksFragment" />
+        android:label="PlaylistTracksFragment" >
+        <action
+            android:id="@+id/action_playlistTracksFragment_to_home"
+            app:destination="@id/home" />
+    </fragment>
 </navigation>

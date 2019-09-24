@@ -2,7 +2,6 @@ package com.android.spotifyapp.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,8 +17,8 @@ import androidx.navigation.Navigation;
 
 import com.android.spotifyapp.R;
 import com.android.spotifyapp.data.network.model.Post.MyPlaylistPost;
-import com.android.spotifyapp.data.viewModelPackage.HomeViewModel;
-import com.android.spotifyapp.data.viewModelPackage.MyPlaylistViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.HomeViewModel;
+import com.android.spotifyapp.data.viewModelPackage.homeViewModels.MyPlaylistViewModel;
 import com.android.spotifyapp.databinding.HomeFragmentBinding;
 import com.android.spotifyapp.di.components.DaggerHomeComponent;
 import com.android.spotifyapp.di.modules.ContextModule;
