@@ -3,7 +3,7 @@
 
 
 
-<p>Simple shopping app using MVVM architecture, android dagger and jetpack architecture components, material design(somewhat)</p>
+<p>Spotify api APP using MVVM architecture, android dagger and jetpack architecture components, material design(somewhat)</p>
 <h1><a href='https://streamable.com/n0ynd' target='_blank'>DEMO</a></h1>
 
 
